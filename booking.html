@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Session — Major Ink Studios</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="logo">MAJOR <span>INK</span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="artists.html">Artists</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="locations.html">Locations</a>
+      <a href="booking.html" class="nav-cta active">Book now</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom: 2.5rem;">
+  <div class="wrap">
+    <div class="hero-eyebrow">Request a session</div>
+    <h1>Book your tattoo</h1>
+    <p class="hero-sub">Tell us what you're thinking and we'll get back to you to confirm a time. Walk-ins are always welcome too — no need to wait on a form.</p>
+    <div class="financing-band" style="margin-top: 2.5rem;">
+      <div class="financing-band-text">
+        <h3>Need financing?</h3>
+        <p>We accept American First Finance — all credit welcome, pay over time.</p>
+      </div>
+      <div class="financing-band-actions">
+        <a class="btn btn-outline" href="https://americanfirstfinance.com/how-it-works/" target="_blank" rel="noopener">How it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap" style="max-width: 760px;">
+
+    <div class="form-success">
+      Request received. Someone from Major Ink will reach out to confirm your appointment.
+    </div>
+
+    <form id="booking-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" placeholder="Jordan Rivera" required>
+          <span class="field-error">Enter your name.</span>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(954) 555-0134" required>
+          <span class="field-error">Enter a phone number.</span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="jordan@email.com" required>
+          <span class="field-error">Enter a valid email address.</span>
+        </div>
+        <div class="field">
+          <label for="artist">Preferred artist</label>
+          <select id="artist" name="artist">
+            <option value="">No preference</option>
+            <option>Artist name — color realism</option>
+            <option>Artist name — fine line</option>
+            <option>Artist name — black &amp; grey</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="style">Style</label>
+          <select id="style" name="style" required>
+            <option value="">Select a style</option>
+            <option>Fine line</option>
+            <option>Color</option>
+            <option>Black &amp; grey</option>
+            <option>Cover-up</option>
+            <option>Portrait / realism</option>
+          </select>
+          <span class="field-error">Select a style.</span>
+        </div>
+        <div class="field">
+          <label for="placement">Placement</label>
+          <input type="text" id="placement" name="placement" placeholder="Forearm, back, ribs...">
+        </div>
+        <div class="field full">
+          <label for="details">Tell us about the piece</label>
+          <textarea id="details" name="details" placeholder="Size, references, any prior work in the area, budget range..." required></textarea>
+          <span class="field-error">Give us a few details about the piece.</span>
+        </div>
+      </div>
+
+      <!-- Honeypot field: hidden from real visitors via CSS, catches simple bots -->
+      <div class="field" style="position: absolute; left: -9999px;" aria-hidden="true">
+        <label for="website">Leave this field blank</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="field-error" id="form-level-error" style="margin-bottom: 1rem;"></div>
+      <button type="submit" class="btn btn-primary" id="submit-btn">Submit request</button>
+      <p class="form-note">Submitting sends your request straight to the shop. We'll follow up by phone or email to confirm your appointment.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Major Ink Studios</h4>
+        <p>2501 Palm Ave #101<br>Miramar, FL</p>
+        <p>The hottest shop in south Florida.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="artists.html">Artists</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book a session</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
+        <a href="locations.html">Locations &amp; hours</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
+      <span>Site design placeholder — swap in real photography before launch.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

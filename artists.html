@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artists — Major Ink Studios</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="logo">MAJOR <span>INK</span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="artists.html" class="active">Artists</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="locations.html">Locations</a>
+      <a href="booking.html" class="nav-cta">Book now</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom: 2rem;">
+  <div class="wrap">
+    <div class="hero-eyebrow">The team</div>
+    <h1>Meet the artists</h1>
+    <p class="hero-sub">Each artist at Major Ink has their own specialty — pick the style, then pick your artist.</p>
+    <span class="placeholder-note">Draft version — bios and headshots below are placeholders until each artist sends theirs</span>
+  </div>
+</section>
+
+<div id="artist-sections" class="wrap"></div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Major Ink Studios</h4>
+        <p>2501 Palm Ave #101<br>Miramar, FL</p>
+        <p>The hottest shop in south Florida.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="artists.html">Artists</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book a session</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
+        <a href="locations.html">Locations &amp; hours</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
+      <span>Site design placeholder — swap in real photography before launch.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="artists-data.js"></script>
+<script src="script.js"></script>
+<script>
+  (function () {
+    var container = document.getElementById('artist-sections');
+    var placeholderPortraitSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>';
+
+    ARTISTS.forEach(function (artist) {
+      var section = document.createElement('div');
+      section.className = 'artist-profile';
+      section.id = artist.slug;
+
+      var portraitHTML = artist.portrait
+        ? '<img src="' + artist.portrait + '" alt="' + artist.name + '">'
+        : '<div class="artist-portrait-placeholder">' + placeholderPortraitSVG + '<div>No headshot yet</div></div>';
+
+      var bioClass = artist.bio.startsWith('PLACEHOLDER') ? 'artist-profile-bio is-placeholder' : 'artist-profile-bio';
+
+      var photosHTML = artist.photos.map(function (src) {
+        return '<img src="' + src + '" alt="Work by ' + artist.name + '" loading="lazy">';
+      }).join('');
+
+      section.innerHTML =
+        '<div class="artist-profile-head">' +
+          '<div class="artist-portrait">' + portraitHTML + '</div>' +
+          '<div>' +
+            '<h3>' + artist.name + '</h3>' +
+            '<p class="artist-profile-role">' + artist.role + '</p>' +
+            '<p class="' + bioClass + '">' + artist.bio + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="artist-work-grid">' + photosHTML + '</div>';
+
+      container.appendChild(section);
+    });
+  })();
+</script>
+</body>
+</html>

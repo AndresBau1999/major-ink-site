@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Major Ink Studios</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="logo">MAJOR <span>INK</span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="artists.html">Artists</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="locations.html">Locations</a>
+      <a href="booking.html" class="nav-cta">Book now</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom: 2.5rem;">
+  <div class="wrap">
+    <div class="hero-eyebrow">Portfolio</div>
+    <h1>The gallery</h1>
+    <p class="hero-sub">Fine line, color, portrait, and cover-up work from the shop. Filter by style below.</p>
+    <div class="hero-actions" style="margin-top: 2rem;">
+      <button class="btn btn-outline filter-btn active" data-filter="all">All</button>
+      <button class="btn btn-outline filter-btn" data-filter="color">Color</button>
+      <button class="btn btn-outline filter-btn" data-filter="fineline">Fine line</button>
+      <button class="btn btn-outline filter-btn" data-filter="blackgrey">Black &amp; grey</button>
+      <button class="btn btn-outline filter-btn" data-filter="coverup">Cover-ups</button>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <div class="flash-grid" id="gallery-grid">
+      <div class="flash-item tall" data-cat="color">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><path d="M12 2 L12 22 M4 8 L20 8 M4 16 L20 16"/></svg></div>
+        <div class="flash-caption"><strong>Full sleeve — color realism</strong>Placeholder photo</div>
+      </div>
+      <div class="flash-item reg" data-cat="blackgrey">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><circle cx="12" cy="12" r="9"/></svg></div>
+        <div class="flash-caption"><strong>Portrait — black &amp; grey</strong>Placeholder photo</div>
+      </div>
+      <div class="flash-item reg" data-cat="color">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><rect x="4" y="4" width="16" height="16"/></svg></div>
+        <div class="flash-caption"><strong>Crest &amp; crown — color</strong>Placeholder photo</div>
+      </div>
+      <div class="flash-item wide" data-cat="fineline">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><path d="M3 12 Q12 2 21 12 Q12 22 3 12 Z"/></svg></div>
+        <div class="flash-caption"><strong>Fine line — botanical back piece</strong>Placeholder photo</div>
+      </div>
+      <div class="flash-item reg" data-cat="coverup">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><path d="M4 4 L20 20 M20 4 L4 20"/></svg></div>
+        <div class="flash-caption"><strong>Cover-up — sleeve rework</strong>Placeholder photo</div>
+      </div>
+      <div class="flash-item reg" data-cat="fineline">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><path d="M6 18 L12 4 L18 18 Z"/></svg></div>
+        <div class="flash-caption"><strong>Single-needle line work</strong>Placeholder photo</div>
+      </div>
+      <div class="flash-item wide" data-cat="blackgrey">
+        <div class="flash-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><path d="M12 3 L21 9 L21 15 L12 21 L3 15 L3 9 Z"/></svg></div>
+        <div class="flash-caption"><strong>Religious sleeve — black &amp; grey</strong>Placeholder photo</div>
+      </div>
+    </div>
+    <p class="divider-note">Grid shown with placeholder tiles — send over your best shop photos and I'll swap them in at full resolution, tagged by style so the filters above actually sort real work.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Major Ink Studios</h4>
+        <p>2501 Palm Ave #101<br>Miramar, FL</p>
+        <p>The hottest shop in south Florida.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="artists.html">Artists</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book a session</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
+        <a href="locations.html">Locations &amp; hours</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
+      <span>Site design placeholder — swap in real photography before launch.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  document.querySelectorAll('.filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); b.style.borderColor = ''; b.style.color = ''; });
+      btn.classList.add('active');
+      btn.style.borderColor = 'var(--pink)';
+      btn.style.color = 'var(--pink)';
+      var filter = btn.dataset.filter;
+      document.querySelectorAll('#gallery-grid .flash-item').forEach(function (item) {
+        item.style.display = (filter === 'all' || item.dataset.cat === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
