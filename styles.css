@@ -114,8 +114,10 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 860px) {
   /* The header's backdrop-filter makes it the containing block for this fixed
      menu, so bottom: 0 would collapse it — size it to the viewport instead. */
-  .main-nav { position: fixed; top: 76px; left: 0; right: 0; height: calc(100vh - 76px); height: calc(100dvh - 76px); background: var(--ink); flex-direction: column; justify-content: flex-start; padding: 2.5rem 1.5rem; gap: 1.75rem; transform: translateX(100%); transition: transform 0.25s ease; }
-  .main-nav.open { transform: translateX(0); }
+  .main-nav { position: fixed; top: 76px; left: 0; right: 0; height: calc(100vh - 76px); height: calc(100dvh - 76px); background: var(--ink); flex-direction: column; justify-content: flex-start; padding: 2.5rem 1.5rem; gap: 1.75rem; clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path 0.45s cubic-bezier(0.7, 0, 0.3, 1), visibility 0s 0.45s; }
+  /* Revealed with clip-path, not slid in from the side, so the closed menu
+     never makes the page scroll sideways on phones. */
+  .main-nav.open { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path 0.45s cubic-bezier(0.7, 0, 0.3, 1), visibility 0s; }
   .main-nav a { font-size: 1.25rem; }
   .nav-toggle { display: block; }
 }
@@ -762,11 +764,15 @@ body.is-loading, body.is-locked { overflow: hidden; }
 .hover-preview {
   position: fixed; top: 0; left: 0;
   z-index: 60;
-  width: 260px;
+  width: clamp(150px, 15vw, 220px);
   aspect-ratio: 3/4;
   pointer-events: none;
   overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
+.hover-preview.is-active { opacity: 1; }
 .hover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; scale: 0.4; opacity: 0; transition: scale 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease; }
 .hover-preview.is-active img { scale: 1; opacity: 1; }
 
@@ -840,6 +846,7 @@ body.is-loading, body.is-locked { overflow: hidden; }
   transition: opacity 0.35s ease, visibility 0.35s;
 }
 .lightbox.is-open { opacity: 1; visibility: visible; }
+.lightbox { touch-action: pan-y pinch-zoom; }
 .lightbox figure { margin: 0; max-width: min(88vw, 900px); text-align: center; }
 .lightbox img { max-width: 100%; max-height: 80vh; object-fit: contain; border: 1px solid var(--line); scale: 0.92; transition: scale 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .lightbox.is-open img { scale: 1; }
@@ -855,6 +862,15 @@ body.is-loading, body.is-locked { overflow: hidden; }
 }
 
 :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+/* Phones and tablets */
+@media (hover: none) {
+  body::before { animation: none; }
+}
+@media (max-width: 860px) {
+  /* 16px keeps iOS Safari from zooming in when a field is tapped */
+  input, select, textarea { font-size: 16px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

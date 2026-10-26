@@ -10,22 +10,49 @@
   function lerp(a, b, t) { return a + (b - a) * t; }
   function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
-  var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  window.addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+  // `inside` is false whenever the mouse is outside the window (or the last
+  // input was touch), so cursor effects can hide instead of freezing in place.
+  var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, inside: false, moved: false };
+  window.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') { mouse.inside = false; return; }
+    mouse.x = e.clientX; mouse.y = e.clientY;
+    mouse.inside = true;
+    mouse.moved = true;
+  }, { passive: true });
+  window.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') mouse.inside = false; }, { passive: true });
+  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) mouse.inside = false; });
+  window.addEventListener('blur', function () { mouse.inside = false; });
+
+  // What sits under the mouse right now. Re-checked whenever the mouse or the
+  // page moves, so hover states stay correct while scrolling with the wheel.
+  var hovered = null;
+  function updateHovered(scrolled) {
+    if (!mouse.inside) { hovered = null; return; }
+    if (!mouse.moved && !scrolled) return;
+    hovered = document.elementFromPoint(mouse.x, mouse.y);
+    mouse.moved = false;
+  }
 
   // One shared animation loop for everything that follows the mouse or scroll.
   var scroll = { y: window.scrollY, last: window.scrollY, velocity: 0, dir: 1 };
   var tickers = [];
+  var lastTime = performance.now(), frame = 1;
   function onTick(fn) { tickers.push(fn); }
-  function loop() {
+  // Smoothing that feels the same at 60Hz and 144Hz, and doesn't crawl when frames drop.
+  function ease(k) { return 1 - Math.pow(1 - k, frame); }
+  function loop(now) {
+    frame = clamp((now - lastTime) / 16.667, 0.25, 4);
+    lastTime = now;
     scroll.y = window.scrollY;
     var dy = scroll.y - scroll.last;
     scroll.velocity = lerp(scroll.velocity, dy, 0.2);
     if (dy !== 0) scroll.dir = dy > 0 ? 1 : -1;
     scroll.last = scroll.y;
+    updateHovered(dy !== 0 || pinnedMoving);
     for (var i = 0; i < tickers.length; i++) tickers[i]();
     requestAnimationFrame(loop);
   }
+  var pinnedMoving = false;
 
   function onceInView(el, fn, margin) {
     if (!('IntersectionObserver' in window)) { fn(); return; }
@@ -279,10 +306,16 @@
         '<span>Found your artist?</span><strong>Book now &rarr;</strong>' +
       '</a>';
 
+    // Pinned scroll-jacking only for mouse users on wide screens. Phones and
+    // tablets get a native swipeable row instead (their toolbars resize the
+    // viewport mid-scroll, which makes a pinned section jump).
     var desktop = window.matchMedia('(min-width: 861px)');
-    var distance = 0, x = 0;
+    var distance = 0, x = 0, lastW = 0, lastH = 0;
     function measure() {
-      if (!desktop.matches || reduceMotion) {
+      // Ignore tiny height-only changes so the page doesn't jump mid-scroll.
+      if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 120 && lastW) return;
+      lastW = window.innerWidth; lastH = window.innerHeight;
+      if (!desktop.matches || !finePointer || reduceMotion) {
         section.classList.remove('is-pinned');
         section.style.height = '';
         track.style.transform = '';
@@ -295,20 +328,27 @@
     }
     measure();
     window.addEventListener('resize', measure);
-    window.addEventListener('load', measure);
+    window.addEventListener('load', function () { lastW = 0; measure(); });
 
     onTick(function () {
+      pinnedMoving = false;
       if (!distance) return;
       var r = section.getBoundingClientRect();
       if (r.bottom < -50 || r.top > window.innerHeight + 50) return;
       var p = clamp(-r.top / distance, 0, 1);
-      x = lerp(x, -p * distance, 0.12);
+      var target = -p * distance;
+      x = Math.abs(target - x) < 0.1 ? target : lerp(x, target, ease(0.14));
+      // The track slides under a still mouse, so hover targets must be re-checked.
+      pinnedMoving = x !== target;
       track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
       if (progress) progress.style.transform = 'scaleX(' + p.toFixed(4) + ')';
     });
   }
 
-  // ---------- Floating image that follows the cursor over list rows ----------
+  // ---------- Photo that pops up beside the hovered list row ----------
+  // The photo is parked in the empty space on the right of the row and only
+  // leans a little toward the mouse, so it never sits on top of the pointer
+  // or the heading text.
   function initHoverPreview() {
     if (!finePointer || reduceMotion) return;
     document.querySelectorAll('[data-hover-list]').forEach(function (list) {
@@ -323,20 +363,28 @@
       list.querySelectorAll('[data-hover-img]').forEach(function (row) {
         var pre = new Image();
         pre.src = row.getAttribute('data-hover-img');
-        row.addEventListener('mouseenter', function () {
-          img.src = row.getAttribute('data-hover-img');
-          preview.classList.add('is-active');
-        });
-        row.addEventListener('mouseleave', function () { preview.classList.remove('is-active'); });
       });
 
-      var pos = { x: mouse.x, y: mouse.y }, rot = 0;
+      var activeRow = null, pos = null, rot = 0;
       onTick(function () {
-        var dx = mouse.x - pos.x;
-        pos.x = lerp(pos.x, mouse.x, 0.14);
-        pos.y = lerp(pos.y, mouse.y, 0.14);
-        rot = lerp(rot, clamp(dx * 0.12, -14, 14), 0.1);
-        preview.style.transform = 'translate3d(' + pos.x.toFixed(1) + 'px,' + pos.y.toFixed(1) + 'px,0) translate(-50%,-50%) rotate(' + rot.toFixed(2) + 'deg)';
+        var row = hovered && hovered.closest ? hovered.closest('[data-hover-img]') : null;
+        if (row && !list.contains(row)) row = null;
+        if (row !== activeRow) {
+          activeRow = row;
+          if (row) img.src = row.getAttribute('data-hover-img');
+          preview.classList.toggle('is-active', !!row);
+        }
+        if (!activeRow) return;
+        var r = activeRow.getBoundingClientRect();
+        var w = preview.offsetWidth;
+        var tx = r.right - 110 - w / 2 + (mouse.x - (r.left + r.width / 2)) * 0.04;
+        var ty = r.top + r.height / 2 + (mouse.y - (r.top + r.height / 2)) * 0.25;
+        if (!pos) pos = { x: tx, y: ty };
+        var dx = tx - pos.x;
+        pos.x = lerp(pos.x, tx, ease(0.2));
+        pos.y = lerp(pos.y, ty, ease(0.2));
+        rot = lerp(rot, clamp(dx * 0.3, -8, 8), ease(0.15));
+        preview.style.transform = 'translate3d(' + pos.x.toFixed(1) + 'px,' + pos.y.toFixed(1) + 'px,0) translate(-50%,-50%) rotate(' + (rot - 3).toFixed(2) + 'deg)';
       });
     });
   }
@@ -353,41 +401,50 @@
     dot.setAttribute('aria-hidden', 'true');
     document.body.appendChild(ring);
     document.body.appendChild(dot);
-    root.classList.add('has-cursor');
+
     var label = ring.firstChild;
 
-    window.addEventListener('pointermove', function () {
-      ring.classList.add('is-visible');
-      dot.classList.add('is-visible');
-    }, { once: true });
-    document.documentElement.addEventListener('mouseleave', function () { ring.classList.remove('is-visible'); dot.classList.remove('is-visible'); });
-    document.documentElement.addEventListener('mouseenter', function () { ring.classList.add('is-visible'); dot.classList.add('is-visible'); });
-
-    document.addEventListener('pointerover', function (e) {
-      var t = e.target.closest('[data-cursor], a, button, input, select, textarea, label');
-      ring.classList.remove('is-link', 'is-label', 'is-text');
-      dot.classList.remove('is-hidden');
-      if (!t) return;
-      if (t.matches('input, select, textarea')) {
-        ring.classList.add('is-text');
-        dot.classList.add('is-hidden');
-      } else if (t.getAttribute('data-cursor')) {
-        label.textContent = t.getAttribute('data-cursor');
-        ring.classList.add('is-label');
-        dot.classList.add('is-hidden');
-      } else {
-        ring.classList.add('is-link');
-      }
-    });
+    // The dot moves straight from the event so it never lags the real pointer.
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      dot.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';
+    }, { passive: true });
     document.addEventListener('pointerdown', function () { ring.classList.add('is-down'); });
     document.addEventListener('pointerup', function () { ring.classList.remove('is-down'); });
 
-    var pos = { x: mouse.x, y: mouse.y };
+    var pos = { x: mouse.x, y: mouse.y }, visible = false, state = '', lastTarget;
+    function setState(next, text) {
+      if (next === 'label' && label.textContent !== text) label.textContent = text;
+      if (next === state) return;
+      ring.classList.remove('is-link', 'is-label', 'is-text');
+      if (next) ring.classList.add('is-' + next);
+      dot.classList.toggle('is-hidden', next === 'label' || next === 'text');
+      state = next;
+    }
     onTick(function () {
-      pos.x = lerp(pos.x, mouse.x, 0.2);
-      pos.y = lerp(pos.y, mouse.y, 0.2);
+      if (mouse.inside !== visible) {
+        visible = mouse.inside;
+        ring.classList.toggle('is-visible', visible);
+        dot.classList.toggle('is-visible', visible);
+        // Reappear at the pointer instead of gliding in from where it left.
+        if (visible) { pos.x = mouse.x; pos.y = mouse.y; }
+        // Native cursor comes back while ours is hidden (e.g. after touch input).
+        root.classList.toggle('has-cursor', visible);
+      }
+      if (!visible) return;
+
+      if (hovered !== lastTarget) {
+        lastTarget = hovered;
+        var t = hovered && hovered.closest ? hovered.closest('[data-cursor], a, button, input, select, textarea, label') : null;
+        if (!t) setState('');
+        else if (t.matches('input, select, textarea')) setState('text');
+        else if (t.getAttribute('data-cursor')) setState('label', t.getAttribute('data-cursor'));
+        else setState('link');
+      }
+
+      pos.x = lerp(pos.x, mouse.x, ease(0.35));
+      pos.y = lerp(pos.y, mouse.y, ease(0.35));
       ring.style.transform = 'translate3d(' + pos.x.toFixed(1) + 'px,' + pos.y.toFixed(1) + 'px,0)';
-      dot.style.transform = 'translate3d(' + mouse.x + 'px,' + mouse.y + 'px,0)';
     });
   }
 
@@ -396,6 +453,7 @@
     if (!finePointer || reduceMotion) return;
     document.querySelectorAll('.btn, .nav-cta, [data-magnetic]').forEach(function (el) {
       el.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
         var r = el.getBoundingClientRect();
         var x = e.clientX - (r.left + r.width / 2);
         var y = e.clientY - (r.top + r.height / 2);
@@ -494,6 +552,7 @@
     });
     var startX = null;
     box.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+    box.addEventListener('pointercancel', function () { startX = null; });
     box.addEventListener('pointerup', function (e) {
       if (startX === null) return;
       var dx = e.clientX - startX;
