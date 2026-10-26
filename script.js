@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // different domains: majorinkstudios.netlify.app + Railway).
     var BOOKING_API_URL = 'https://major-ink-backend-production.up.railway.app/api/bookings';
 
+    // "Book with <artist>" links pass ?artist=Name to preselect the dropdown.
+    var requestedArtist = new URLSearchParams(location.search).get('artist');
+    var artistSelect = form.querySelector('#artist');
+    if (requestedArtist && artistSelect) {
+      Array.prototype.forEach.call(artistSelect.options, function (opt) {
+        if (opt.value.toLowerCase() === requestedArtist.toLowerCase()) artistSelect.value = opt.value;
+      });
+    }
+
     function clearErrors() {
       form.querySelectorAll('.field').forEach(function (f) { f.classList.remove('error'); });
       document.getElementById('form-level-error').textContent = '';

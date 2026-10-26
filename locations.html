@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Locations — Major Ink Studios</title>
+<script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,8 +26,8 @@
 <section class="hero" style="padding-bottom: 3rem;">
   <div class="wrap">
     <div class="hero-eyebrow">Find us</div>
-    <h1>Our locations</h1>
-    <p class="hero-sub">Two shops in Miramar, with a third on the way. Walk-ins welcome every day — no appointment needed, but you can book ahead if you want a specific artist.</p>
+    <h1 data-split data-after-intro>Our locations</h1>
+    <p class="hero-sub" data-reveal data-after-intro>Two shops in Miramar, with a third on the way. Walk-ins welcome every day — no appointment needed, but you can book ahead if you want a specific artist.</p>
   </div>
 </section>
 
@@ -34,7 +35,7 @@
   <div class="wrap">
     <div class="location-grid">
 
-      <div class="location-card">
+      <div class="location-card" data-reveal>
         <iframe class="location-card-map" loading="lazy" src="https://www.google.com/maps?q=2501+Palm+Ave+Ste+101,+Miramar,+FL+33025&output=embed"></iframe>
         <div class="location-card-body">
           <h3>Major Ink Studios</h3>
@@ -46,7 +47,7 @@
         </div>
       </div>
 
-      <div class="location-card">
+      <div class="location-card" data-reveal>
         <iframe class="location-card-map" loading="lazy" src="https://www.google.com/maps?q=Major+Ink+Studios+2,+7971+Miramar+Pkwy,+Miramar,+FL+33023&output=embed"></iframe>
         <div class="location-card-body">
           <h3>Major Ink Studios 2</h3>
@@ -58,7 +59,7 @@
         </div>
       </div>
 
-      <div class="location-card coming-soon">
+      <div class="location-card coming-soon" data-reveal>
         <div class="location-card-body">
           <h3>Third location — opening soon</h3>
           <p class="location-card-address">Address to be announced.<br>Follow Instagram for updates.</p>
@@ -101,5 +102,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="fx.js"></script>
 </body>
 </html>

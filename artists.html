@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artists — Major Ink Studios</title>
+<script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,8 +26,8 @@
 <section class="hero" style="padding-bottom: 2rem;">
   <div class="wrap">
     <div class="hero-eyebrow">The team</div>
-    <h1>Meet the artists</h1>
-    <p class="hero-sub">Each artist at Major Ink has their own specialty — pick the style, then pick your artist.</p>
+    <h1 data-split data-after-intro>Meet the artists</h1>
+    <p class="hero-sub" data-reveal data-after-intro>Each artist at Major Ink has their own specialty — pick the style, then pick your artist.</p>
     <span class="placeholder-note">Draft version — bios and headshots below are placeholders until each artist sends theirs</span>
   </div>
 </section>
@@ -71,6 +72,7 @@
       var section = document.createElement('div');
       section.className = 'artist-profile';
       section.id = artist.slug;
+      section.setAttribute("data-reveal", "");
 
       var portraitHTML = artist.portrait
         ? '<img src="' + artist.portrait + '" alt="' + artist.name + '">'
@@ -89,13 +91,15 @@
             '<h3>' + artist.name + '</h3>' +
             '<p class="artist-profile-role">' + artist.role + '</p>' +
             '<p class="' + bioClass + '">' + artist.bio + '</p>' +
+            '<a class="btn btn-primary artist-book" href="booking.html?artist=' + encodeURIComponent(artist.name) + '">Book with ' + artist.name + '</a>' +
           '</div>' +
         '</div>' +
-        '<div class="artist-work-grid">' + photosHTML + '</div>';
+        '<div class="artist-work-grid" data-lightbox>' + photosHTML + '</div>';
 
       container.appendChild(section);
     });
   })();
 </script>
+<script src="fx.js"></script>
 </body>
 </html>

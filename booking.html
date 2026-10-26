@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book a Session — Major Ink Studios</title>
+<script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,9 +26,9 @@
 <section class="hero" style="padding-bottom: 2.5rem;">
   <div class="wrap">
     <div class="hero-eyebrow">Request a session</div>
-    <h1>Book your tattoo</h1>
-    <p class="hero-sub">Tell us what you're thinking and we'll get back to you to confirm a time. Walk-ins are always welcome too — no need to wait on a form.</p>
-    <div class="financing-band" style="margin-top: 2.5rem;">
+    <h1 data-split data-after-intro>Book your tattoo</h1>
+    <p class="hero-sub" data-reveal data-after-intro>Tell us what you're thinking and we'll get back to you to confirm a time. Walk-ins are always welcome too — no need to wait on a form.</p>
+    <div class="financing-band" style="margin-top: 2.5rem;" data-reveal data-after-intro>
       <div class="financing-band-text">
         <h3>Need financing?</h3>
         <p>We accept American First Finance — all credit welcome, pay over time.</p>
@@ -40,7 +41,7 @@
 </section>
 
 <section style="padding-top: 0;">
-  <div class="wrap" style="max-width: 760px;">
+  <div class="wrap" style="max-width: 760px;" data-reveal>
 
     <div class="form-success">
       Request received. Someone from Major Ink will reach out to confirm your appointment.
@@ -67,9 +68,11 @@
           <label for="artist">Preferred artist</label>
           <select id="artist" name="artist">
             <option value="">No preference</option>
-            <option>Artist name — color realism</option>
-            <option>Artist name — fine line</option>
-            <option>Artist name — black &amp; grey</option>
+            <option>Chief</option>
+            <option>Fernando</option>
+            <option>Mustafa</option>
+            <option>Nyah</option>
+            <option>Veronika</option>
           </select>
         </div>
         <div class="field">
@@ -136,5 +139,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="fx.js"></script>
 </body>
 </html>
