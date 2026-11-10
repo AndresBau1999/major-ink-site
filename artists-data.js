@@ -8,18 +8,24 @@ const ARTISTS = [
   {
     slug: 'chief',
     name: 'Chief',
-    role: 'PLACEHOLDER — specialty (e.g. color realism, watercolor)',
+    role: 'Custom sleeves · black & grey and color',
     bio: 'PLACEHOLDER BIO — replace with Chief\'s own words: background, years tattooing, specialty, notable work.',
     portrait: null,
-    photos: ['images/artists/chief/1.jpg', 'images/artists/chief/2.jpg', 'images/artists/chief/3.jpg', 'images/artists/chief/4.jpg']
+    photos: [
+      'images/artists/chief/1.jpg', 'images/artists/chief/2.jpg', 'images/artists/chief/3.jpg', 'images/artists/chief/4.jpg',
+      'images/artists/chief/5.jpg', 'images/artists/chief/6.jpg', 'images/artists/chief/7.jpg', 'images/artists/chief/8.jpg'
+    ]
   },
   {
     slug: 'fernando',
     name: 'Fernando',
-    role: 'PLACEHOLDER — specialty (e.g. fine line illustrative, black & grey)',
+    role: 'Black & grey realism',
     bio: 'PLACEHOLDER BIO — replace with Fernando\'s own words: background, years tattooing, specialty, notable work.',
     portrait: null,
-    photos: ['images/artists/fernando/1.jpg', 'images/artists/fernando/2.jpg', 'images/artists/fernando/3.jpg', 'images/artists/fernando/4.jpg']
+    photos: [
+      'images/artists/fernando/1.jpg', 'images/artists/fernando/2.jpg', 'images/artists/fernando/3.jpg', 'images/artists/fernando/4.jpg',
+      'images/artists/fernando/5.jpg', 'images/artists/fernando/6.jpg', 'images/artists/fernando/7.jpg', 'images/artists/fernando/8.jpg'
+    ]
   },
   {
     slug: 'mustafa',
@@ -40,9 +46,45 @@ const ARTISTS = [
   {
     slug: 'veronika',
     name: 'Veronika',
-    role: 'PLACEHOLDER — specialty (e.g. mandala, watercolor spiritual)',
+    role: 'Watercolor color work & florals',
     bio: 'PLACEHOLDER BIO — replace with Veronika\'s own words: background, years tattooing, specialty, notable work.',
     portrait: null,
-    photos: ['images/artists/veronika/1.jpg', 'images/artists/veronika/2.jpg', 'images/artists/veronika/3.jpg']
+    photos: [
+      'images/artists/veronika/1.jpg', 'images/artists/veronika/2.jpg', 'images/artists/veronika/3.jpg', 'images/artists/veronika/4.jpg',
+      'images/artists/veronika/5.jpg', 'images/artists/veronika/6.jpg', 'images/artists/veronika/7.jpg', 'images/artists/veronika/8.jpg'
+    ]
+  },
+  {
+    slug: 'jessi',
+    name: 'Jessi',
+    role: 'Illustrative color & red-and-black',
+    bio: 'PLACEHOLDER BIO — replace with Jessi\'s own words: background, years tattooing, specialty, notable work.',
+    portrait: null,
+    photos: [
+      'images/artists/jessi/1.jpg', 'images/artists/jessi/2.jpg', 'images/artists/jessi/3.jpg', 'images/artists/jessi/4.jpg',
+      'images/artists/jessi/5.jpg', 'images/artists/jessi/6.jpg', 'images/artists/jessi/7.jpg', 'images/artists/jessi/8.jpg'
+    ]
+  },
+  {
+    slug: 'batu',
+    name: 'Batu',
+    role: 'Portraits & black and grey realism',
+    bio: 'PLACEHOLDER BIO — replace with Batu\'s own words: background, years tattooing, specialty, notable work.',
+    portrait: null,
+    photos: [
+      'images/artists/batu/1.jpg', 'images/artists/batu/2.jpg', 'images/artists/batu/3.jpg', 'images/artists/batu/4.jpg',
+      'images/artists/batu/5.jpg', 'images/artists/batu/6.jpg', 'images/artists/batu/7.jpg', 'images/artists/batu/8.jpg'
+    ]
+  },
+  {
+    slug: 'mani',
+    name: 'Mani',
+    role: 'Large-scale black & grey and color realism',
+    bio: 'PLACEHOLDER BIO — replace with Mani\'s own words: background, years tattooing, specialty, notable work.',
+    portrait: null,
+    photos: [
+      'images/artists/mani/1.jpg', 'images/artists/mani/2.jpg', 'images/artists/mani/3.jpg', 'images/artists/mani/4.jpg',
+      'images/artists/mani/5.jpg', 'images/artists/mani/6.jpg', 'images/artists/mani/7.jpg', 'images/artists/mani/8.jpg'
+    ]
   }
 ];
