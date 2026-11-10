@@ -28,7 +28,7 @@
     <div class="hero-eyebrow">Portfolio</div>
     <h1 data-split data-after-intro>The gallery</h1>
     <p class="hero-sub" data-reveal data-after-intro>Fine line, color, portrait, and cover-up work from the shop. Filter by artist below, and tap any piece to see it full size.</p>
-    <div class="hero-actions" id="gallery-filters" style="margin-top: 2rem;" data-reveal data-after-intro>
+    <div class="hero-actions filter-row" id="gallery-filters" style="margin-top: 2rem;" data-reveal data-after-intro>
       <button class="btn btn-outline filter-btn is-active" data-filter="all">All</button>
     </div>
   </div>
@@ -98,10 +98,23 @@
       filters.appendChild(btn);
     });
 
+    // Drop the right-edge fade once the row is scrolled to its end.
+    function updateFilterFade() {
+      filters.classList.toggle('at-end', filters.scrollLeft + filters.clientWidth >= filters.scrollWidth - 4);
+    }
+    filters.addEventListener('scroll', updateFilterFade, { passive: true });
+    window.addEventListener('resize', updateFilterFade);
+    updateFilterFade();
+
     filters.addEventListener('click', function (e) {
       var btn = e.target.closest('.filter-btn');
       if (!btn) return;
       filters.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+      // On phones the filters are a swipeable row; bring the tapped one fully into view.
+      if (filters.scrollWidth > filters.clientWidth) {
+        var offset = btn.getBoundingClientRect().left - filters.getBoundingClientRect().left;
+        filters.scrollTo({ left: filters.scrollLeft + offset - (filters.clientWidth - btn.offsetWidth) / 2, behavior: 'smooth' });
+      }
       var filter = btn.getAttribute('data-filter');
       var shown = 0;
       grid.querySelectorAll('.gallery-item').forEach(function (item) {

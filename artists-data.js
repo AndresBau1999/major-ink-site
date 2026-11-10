@@ -28,20 +28,15 @@ const ARTISTS = [
     ]
   },
   {
-    slug: 'mustafa',
-    name: 'Mustafa',
-    role: 'PLACEHOLDER — specialty (e.g. bold color, character/pop culture)',
-    bio: 'PLACEHOLDER BIO — replace with Mustafa\'s own words: background, years tattooing, specialty, notable work.',
-    portrait: null,
-    photos: ['images/artists/mustafa/1.jpg', 'images/artists/mustafa/2.jpg', 'images/artists/mustafa/3.jpg', 'images/artists/mustafa/4.jpg', 'images/artists/mustafa/5.jpg']
-  },
-  {
     slug: 'nyah',
     name: 'Nyah',
-    role: 'PLACEHOLDER — specialty (e.g. fine line, celestial/delicate)',
+    role: 'Fine line & illustrative',
     bio: 'PLACEHOLDER BIO — replace with Nyah\'s own words: background, years tattooing, specialty, notable work.',
     portrait: null,
-    photos: ['images/artists/nyah/1.jpg', 'images/artists/nyah/2.jpg', 'images/artists/nyah/3.jpg', 'images/artists/nyah/4.jpg']
+    photos: [
+      'images/artists/nyah/1.jpg', 'images/artists/nyah/2.jpg', 'images/artists/nyah/3.jpg', 'images/artists/nyah/4.jpg',
+      'images/artists/nyah/5.jpg', 'images/artists/nyah/6.jpg', 'images/artists/nyah/7.jpg', 'images/artists/nyah/8.jpg'
+    ]
   },
   {
     slug: 'veronika',
