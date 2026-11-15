@@ -1343,3 +1343,7 @@ input, select, textarea { border-radius: var(--radius-sm); }
   .hero-home .hero-actions .btn-primary { padding-right: 0.45rem; }
   .hero-home .hero-actions .btn-arrow { width: 1.9rem; height: 1.9rem; }
 }
+/* Inside the shop: same swipe/drag row as the artist reels, a little larger */
+.shop-reel img { width: clamp(240px, 26vw, 360px); }
+.shop-reel img:nth-child(odd) { margin-top: 2.5rem; }
+@media (max-width: 860px) { .shop-reel img { width: 66vw; } .shop-reel img:nth-child(odd) { margin-top: 1.25rem; } }
