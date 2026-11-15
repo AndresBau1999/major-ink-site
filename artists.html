@@ -2,61 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Artists — Major Ink Studios</title>
+<meta name="description" content="Meet the seven tattoo artists at Major Ink Studios in Miramar, FL, and browse each artist's work.">
 <script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="site-header">
-  <div class="wrap">
+  <div class="nav-pill">
     <a href="index.html" class="logo">MAJOR <span>INK</span></a>
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
       <a href="index.html">Home</a>
       <a href="artists.html" class="active">Artists</a>
       <a href="gallery.html">Gallery</a>
       <a href="locations.html">Locations</a>
       <a href="booking.html" class="nav-cta">Book now</a>
     </nav>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
   </div>
 </header>
 
-<section class="hero" style="padding-bottom: 2rem;">
+<section class="hero" style="padding-bottom: 1.5rem;">
   <div class="wrap">
     <div class="hero-eyebrow">The team</div>
-    <h1 data-split data-after-intro>Meet the artists</h1>
-    <p class="hero-sub" data-reveal data-after-intro>Each artist at Major Ink has their own specialty — pick the style, then pick your artist.</p>
-    <span class="placeholder-note">Draft version — bios and headshots below are placeholders until each artist sends theirs</span>
+    <h1 data-split data-after-intro>Meet the <em class="serif">artists</em></h1>
+    <p class="hero-sub" data-reveal data-after-intro>Seven artists, each with their own specialty. Pick the style you love, then book with the artist who does it best.</p>
+    <nav class="artist-jump" id="artist-jump" aria-label="Jump to an artist" data-reveal data-after-intro></nav>
   </div>
 </section>
 
 <div id="artist-sections" class="wrap"></div>
+
+<a href="booking.html" class="mobile-book">Book a session <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
 
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
       <div>
         <h4>Major Ink Studios</h4>
-        <p>2501 Palm Ave #101<br>Miramar, FL</p>
-        <p>The hottest shop in south Florida.</p>
+        <p>2501 Palm Ave Ste 101<br>Miramar, FL 33025</p>
+        <p>7971 Miramar Pkwy<br>Miramar, FL 33023</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="artists.html">Artists</a>
         <a href="gallery.html">Gallery</a>
+        <a href="locations.html">Locations</a>
         <a href="booking.html">Book a session</a>
       </div>
       <div>
         <h4>Connect</h4>
         <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
-        <a href="locations.html">Locations &amp; hours</a>
+        <a href="https://americanfirstfinance.com/" target="_blank" rel="noopener">Financing</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
-      <span>Site design placeholder — swap in real photography before launch.</span>
+      <span>Walk-ins welcome every day.</span>
     </div>
   </div>
 </footer>
@@ -66,35 +70,37 @@
 <script>
   (function () {
     var container = document.getElementById('artist-sections');
-    var placeholderPortraitSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="#F2ECDF" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>';
+    var jump = document.getElementById('artist-jump');
+    var total = String(ARTISTS.length).padStart(2, '0');
+    var isPlaceholder = function (text) { return !text || /^PLACEHOLDER/.test(text); };
 
-    ARTISTS.forEach(function (artist) {
-      var section = document.createElement('div');
+    jump.innerHTML = ARTISTS.map(function (a) {
+      return '<a href="#' + a.slug + '">' + a.name + '</a>';
+    }).join('');
+
+    ARTISTS.forEach(function (artist, i) {
+      var section = document.createElement('section');
       section.className = 'artist-profile';
       section.id = artist.slug;
-      section.setAttribute("data-reveal", "");
+      section.setAttribute('aria-label', artist.name);
 
-      var portraitHTML = artist.portrait
-        ? '<img src="' + artist.portrait + '" alt="' + artist.name + '">'
-        : '<div class="artist-portrait-placeholder">' + placeholderPortraitSVG + '<div>No headshot yet</div></div>';
+      // Placeholder bios and roles stay out of the public page until the artist sends real ones.
+      var role = isPlaceholder(artist.role) ? '' : '<p class="artist-profile-role">' + artist.role + '</p>';
+      var bio = isPlaceholder(artist.bio) ? '' : '<p class="artist-profile-bio">' + artist.bio + '</p>';
 
-      var bioClass = artist.bio.startsWith('PLACEHOLDER') ? 'artist-profile-bio is-placeholder' : 'artist-profile-bio';
-
-      var photosHTML = artist.photos.map(function (src) {
-        return '<img src="' + src + '" alt="Work by ' + artist.name + '" loading="lazy">';
+      var reel = artist.photos.map(function (src) {
+        return thumbImg(src, 'Tattoo by ' + artist.name);
       }).join('');
 
       section.innerHTML =
-        '<div class="artist-profile-head">' +
-          '<div class="artist-portrait">' + portraitHTML + '</div>' +
-          '<div>' +
-            '<h3>' + artist.name + '</h3>' +
-            '<p class="artist-profile-role">' + artist.role + '</p>' +
-            '<p class="' + bioClass + '">' + artist.bio + '</p>' +
-            '<a class="btn btn-primary artist-book" href="booking.html?artist=' + encodeURIComponent(artist.name) + '">Book with ' + artist.name + '</a>' +
-          '</div>' +
+        '<div class="artist-top" data-reveal>' +
+          '<span class="artist-index">' + String(i + 1).padStart(2, '0') + ' / ' + total + '</span>' +
+          '<h2 class="artist-name">' + artist.name + '</h2>' +
+          '<div class="artist-meta">' + role + bio + '</div>' +
+          '<a class="btn btn-primary artist-book" href="booking.html?artist=' + encodeURIComponent(artist.name) + '">Book with ' + artist.name + ' <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>' +
         '</div>' +
-        '<div class="artist-work-grid" data-lightbox>' + photosHTML + '</div>';
+        '<div class="artist-reel" data-lightbox data-drag-scroll>' + reel + '</div>' +
+        '<p class="reel-hint">' + artist.photos.length + ' pieces &middot; drag or swipe to browse, tap to enlarge</p>';
 
       container.appendChild(section);
     });

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Major Ink Studios — Tattoo Shop in Miramar & Miami, FL</title>
-<meta name="description" content="Major Ink Studios — fine line, color, and cover-up tattoos in Miramar, FL. Walk-ins welcome. 2501 Palm Ave #101.">
+<meta name="description" content="Major Ink Studios — seven tattoo artists in Miramar, FL. Fine line, realism, color and cover-ups. Walk-ins welcome. Book online.">
 <script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,53 +13,40 @@
 <div class="preloader" aria-hidden="true">
   <div class="preloader-bottom"><span>Major Ink Studios</span><span>Miramar, FL</span></div>
   <div class="preloader-word"><span>MAJOR</span> <span>INK</span></div>
-  <div class="preloader-bottom"><span>Loading the book</span><span class="preloader-count">0</span></div>
+  <div class="preloader-bottom"><span>Opening the book</span><span class="preloader-count">0</span></div>
   <div class="preloader-bar"><span></span></div>
 </div>
 
 <header class="site-header">
-  <div class="wrap">
+  <div class="nav-pill">
     <a href="index.html" class="logo">MAJOR <span>INK</span></a>
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
       <a href="index.html" class="active">Home</a>
       <a href="artists.html">Artists</a>
       <a href="gallery.html">Gallery</a>
       <a href="locations.html">Locations</a>
       <a href="booking.html" class="nav-cta">Book now</a>
     </nav>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
   </div>
 </header>
 
-<section class="hero hero-home">
-  <div class="hero-floats" data-reveal data-after-intro aria-hidden="true">
-    <div class="float f1" data-depth="1" style="--i:0; --r:5deg;"><img src="images/artists/chief/1.jpg" alt=""></div>
-    <div class="float f2" data-depth="0.5" style="--i:1; --r:-8deg;"><img src="images/artists/mani/1.jpg" alt=""></div>
-    <div class="float f3" data-depth="1.4" style="--i:2; --r:-3deg;"><img src="images/artists/nyah/1.jpg" alt=""></div>
-    <div class="float f4" data-depth="0.8" style="--i:3; --r:9deg;"><img src="images/artists/veronika/2.jpg" alt=""></div>
-    <div class="float f5" data-depth="1.8" style="--i:4; --r:-6deg;"><img src="images/artists/fernando/3.jpg" alt=""></div>
-  </div>
+<section class="hero hero-home" data-trail>
+  <div class="trail-layer" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero-eyebrow" data-reveal data-after-intro>Miramar &amp; Miami's #1 tattoo shop</div>
-    <h1 data-split data-after-intro>Your skin.<br><em>Our craft.</em></h1>
-    <p class="hero-sub" data-reveal data-after-intro>Fine line, bold color, and cover-ups that actually cover. Walk-ins welcome at 2501 Palm Ave — or book your session online.</p>
-    <div class="hero-actions" data-reveal data-after-intro>
-      <a href="booking.html" class="btn btn-primary">Book a session</a>
-      <a href="gallery.html" class="btn btn-outline">See the work</a>
-    </div>
-    <div class="hero-meta" data-reveal data-after-intro>
-      <div><strong data-count="25.9" data-suffix="K">25.9K</strong><span>Instagram followers</span></div>
-      <div><strong data-count="3">3</strong><span>Specialties: fine line, color, cover-ups</span></div>
-      <div><strong data-count="7">7</strong><span>Days a week, walk-ins welcome</span></div>
-    </div>
+    <div class="hero-status" data-reveal data-after-intro><span class="dot"></span>Walk-ins welcome &middot; 2 shops in Miramar, FL</div>
   </div>
-  <a href="booking.html" class="spin-badge" data-spin aria-label="Book a session">
-    <svg viewBox="0 0 120 120" aria-hidden="true">
-      <defs><path id="badge-circle" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs>
-      <text><textPath href="#badge-circle" textLength="292">Walk-ins welcome &#183; Book now &#183; 7 days a week &#183;</textPath></text>
-    </svg>
-    <span class="spin-badge-center" aria-hidden="true">&#10022;</span>
-  </a>
+  <div class="wrap hero-row">
+    <div>
+      <p class="hero-sub" data-reveal data-after-intro>Custom tattoos by seven artists, from <em>fine line</em> to full-color sleeves and cover-ups that actually cover.</p>
+      <div class="hero-actions" data-reveal data-after-intro>
+        <a href="booking.html" class="btn btn-primary">Book a session <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+        <a href="gallery.html" class="btn btn-outline">See the work</a>
+      </div>
+    </div>
+    <p class="hero-hint" data-reveal data-after-intro>&#10022; Move your cursor to flip through the book</p>
+  </div>
+  <h1 class="hero-wordmark" data-split data-after-intro>MAJOR <span class="ink">INK</span></h1>
 </section>
 
 <section class="marquee-cross" aria-hidden="true">
@@ -67,37 +54,17 @@
     <div class="marquee-track"><span>Walk-ins welcome</span><i>&#10022;</i><span>Two Miramar shops</span><i>&#10022;</i><span>Financing available</span><i>&#10022;</i></div>
   </div>
   <div class="marquee pink" data-marquee="1">
-    <div class="marquee-track"><span>Fine line</span><i>&#10022;</i><span>Bold color</span><i>&#10022;</i><span>Portrait realism</span><i>&#10022;</i><span>Cover-ups</span><i>&#10022;</i></div>
+    <div class="marquee-track"><span>Fine line</span><i>&#10022;</i><span>Black &amp; grey</span><i>&#10022;</i><span>Portrait realism</span><i>&#10022;</i><span>Watercolor</span><i>&#10022;</i><span>Cover-ups</span><i>&#10022;</i></div>
   </div>
 </section>
 
-<section id="work">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2 data-split>Recent work</h2>
-        <p data-reveal>A cross-section of what's coming out of the shop this month — realism, portrait, and color pieces.</p>
-      </div>
-      <a href="gallery.html" class="btn btn-outline">Full gallery</a>
-    </div>
-    <div class="flash-grid" data-lightbox>
-      <div class="flash-item tall" data-reveal="clip" data-parallax>
-        <img class="flash-photo" src="images/artists/chief/1.jpg" alt="Black and grey Atlas forearm piece by Chief">
-        <div class="flash-caption"><strong>Black &amp; grey realism</strong>by Chief</div>
-      </div>
-      <div class="flash-item reg" data-reveal="clip" data-parallax>
-        <img class="flash-photo" src="images/artists/jessi/1.jpg" alt="Red and black woman's face by Jessi">
-        <div class="flash-caption"><strong>Bold color</strong>by Jessi</div>
-      </div>
-      <div class="flash-item reg" data-reveal="clip" data-parallax>
-        <img class="flash-photo" src="images/artists/veronika/1.jpg" alt="Rainbow watercolor phoenix by Veronika">
-        <div class="flash-caption"><strong>Watercolor color</strong>by Veronika</div>
-      </div>
-      <div class="flash-item wide" data-reveal="clip" data-parallax>
-        <img class="flash-photo" src="images/artists/fernando/1.jpg" alt="Black and grey Jesus portrait by Fernando">
-        <div class="flash-caption"><strong>Portrait realism</strong>by Fernando</div>
-      </div>
-    </div>
+<section class="wall" data-wall>
+  <div class="wall-plane" aria-hidden="true"></div>
+  <div class="wall-overlay">
+    <span class="eyebrow" data-reveal>The work</span>
+    <h2 data-split>Seven artists.<br><em class="serif">One book.</em></h2>
+    <p data-reveal>Every piece on this wall came out of our chairs. Open the gallery to filter by artist and see each one up close.</p>
+    <a href="gallery.html" class="btn btn-primary" data-reveal>Open the gallery <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
 
@@ -106,8 +73,9 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <h2 data-split>The artists</h2>
-          <p data-reveal>Seven artists, seven styles. Flip through the book and tap one to see their work.</p>
+          <span class="eyebrow" data-reveal>The artists</span>
+          <h2 data-split>Find your <em class="serif">artist</em></h2>
+          <p data-reveal>Seven artists, seven styles. Flip through and tap one to see their book.</p>
         </div>
         <a href="artists.html" class="btn btn-outline">Meet all 7</a>
       </div>
@@ -117,40 +85,41 @@
   </div>
 </section>
 
-<section style="background: var(--ink-2); border-bottom: 1px solid var(--line);">
+<section style="background: var(--ink-2);">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <h2 data-split>Why Major Ink</h2>
-        <p data-reveal>What clients are actually booking us for.</p>
+        <span class="eyebrow" data-reveal>Why Major Ink</span>
+        <h2 data-split>Known <em class="serif">for</em></h2>
+        <p data-reveal>What clients come back to us for.</p>
       </div>
     </div>
     <div class="row-list hover-list" data-hover-list>
-      <div class="row-item" data-reveal data-hover-img="images/artists/chief/5.jpg">
+      <div class="row-item" data-reveal data-hover-img="images/thumbs/chief/5.jpg">
         <div>
           <h3>Cover-ups that actually cover</h3>
           <span class="tag">Old tattoo, bad tattoo, or ready for a change — we redesign around it.</span>
         </div>
         <span class="tag">01</span>
       </div>
-      <div class="row-item" data-reveal data-hover-img="images/artists/nyah/1.jpg">
+      <div class="row-item" data-reveal data-hover-img="images/thumbs/nyah/1.jpg">
         <div>
           <h3>Fine line &amp; illustrative work</h3>
           <span class="tag">Delicate linework, botanical pieces, and single-needle detail.</span>
         </div>
         <span class="tag">02</span>
       </div>
-      <div class="row-item" data-reveal data-hover-img="images/artists/chief/3.jpg">
+      <div class="row-item" data-reveal data-hover-img="images/thumbs/mani/1.jpg">
         <div>
-          <h3>Bold color &amp; portrait realism</h3>
-          <span class="tag">Sports portraits, characters, and full-color sleeves.</span>
+          <h3>Color &amp; portrait realism</h3>
+          <span class="tag">Portraits, characters, and full-color sleeves.</span>
         </div>
         <span class="tag">03</span>
       </div>
-      <div class="row-item" data-reveal data-hover-img="images/artists/nyah/2.jpg">
+      <div class="row-item" data-reveal data-hover-img="images/thumbs/fernando/3.jpg">
         <div>
-          <h3>Walk-ins welcome, every day</h3>
-          <span class="tag">No appointment needed — or book ahead if you want a specific artist.</span>
+          <h3>Big pieces, start to finish</h3>
+          <span class="tag">Sleeves, back pieces and chest pieces, planned across sessions.</span>
         </div>
         <span class="tag">04</span>
       </div>
@@ -158,16 +127,89 @@
   </div>
 </section>
 
-<section>
+<section class="steps">
   <div class="wrap">
-    <div class="financing-band" data-reveal>
-      <div class="financing-band-text">
-        <h3>Financing available through American First Finance</h3>
-        <p>All credit welcome. Apply in minutes and pay over time for your next piece — approvals from $300–$5,000.</p>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow" data-reveal>How it works</span>
+        <h2 data-split>Idea to <em class="serif">fresh ink</em></h2>
+        <p data-reveal>Four steps, about two minutes of your time to get started. Or skip all of it and walk in.</p>
       </div>
-      <div class="financing-band-actions">
-        <a class="btn btn-outline" href="https://americanfirstfinance.com/how-it-works/" target="_blank" rel="noopener">How it works</a>
-        <a class="btn btn-primary" href="https://americanfirstfinance.com/" target="_blank" rel="noopener">Apply now</a>
+    </div>
+    <div class="stack">
+      <article class="stack-card c-ink" style="--i:0">
+        <div class="stack-text">
+          <span class="stack-num">01</span>
+          <h3>Pick your artist</h3>
+          <p>Browse the book and choose the style that fits you. Not sure? Pick "no preference" and we'll match you.</p>
+          <a class="btn btn-outline" href="artists.html">Meet the artists</a>
+        </div>
+        <div class="stack-media"><img src="images/thumbs/mani/1.jpg" alt="Color realism portrait by Mani" loading="lazy"></div>
+      </article>
+      <article class="stack-card c-paper" style="--i:1">
+        <div class="stack-text">
+          <span class="stack-num">02</span>
+          <h3>Tell us the idea</h3>
+          <p>Style, placement and a few details through the booking form. References and rough ideas are welcome.</p>
+          <a class="btn btn-outline" href="booking.html">Start a request</a>
+        </div>
+        <div class="stack-media"><img src="images/thumbs/nyah/1.jpg" alt="Fine line herons by Nyah" loading="lazy"></div>
+      </article>
+      <article class="stack-card c-pink" style="--i:2">
+        <div class="stack-text">
+          <span class="stack-num">03</span>
+          <h3>We confirm a time</h3>
+          <p>Someone from the shop follows up by phone or email to talk through the piece and lock in your appointment.</p>
+        </div>
+        <div class="stack-media"><img src="images/thumbs/veronika/2.jpg" alt="Watercolor flamingo by Veronika" loading="lazy"></div>
+      </article>
+      <article class="stack-card c-teal" style="--i:3">
+        <div class="stack-text">
+          <span class="stack-num">04</span>
+          <h3>Session day</h3>
+          <p>Come in, get comfortable, and leave with fresh ink. Financing through American First Finance is available.</p>
+          <a class="btn btn-outline" href="https://americanfirstfinance.com/how-it-works/" target="_blank" rel="noopener">How financing works</a>
+        </div>
+        <div class="stack-media"><img src="images/thumbs/chief/2.jpg" alt="Full back piece by Chief" loading="lazy"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="visit" style="padding-top: 3rem;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow" data-reveal>Visit</span>
+        <h2 data-split>Come <em class="serif">see us</em></h2>
+        <p data-reveal>Two shops in Miramar, with a third on the way. Walk-ins welcome every day.</p>
+      </div>
+      <a href="locations.html" class="btn btn-outline">All locations</a>
+    </div>
+    <div class="visit-grid">
+      <div class="visit-card" data-reveal>
+        <span class="visit-tag">Shop 01</span>
+        <h3>Palm Ave</h3>
+        <address>2501 Palm Ave Ste 101<br>Miramar, FL 33025</address>
+        <div class="visit-actions">
+          <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=2501+Palm+Ave+Ste+101%2C+Miramar%2C+FL+33025" target="_blank" rel="noopener">Directions <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="visit-card" data-reveal>
+        <span class="visit-tag">Shop 02</span>
+        <h3>Miramar Pkwy</h3>
+        <address>7971 Miramar Pkwy<br>Miramar, FL 33023</address>
+        <div class="visit-actions">
+          <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=7971+Miramar+Pkwy%2C+Miramar%2C+FL+33023" target="_blank" rel="noopener">Directions <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="visit-card is-soon" data-reveal>
+        <span class="visit-tag">Shop 03</span>
+        <h3>Opening soon</h3>
+        <address>Address to be announced.<br>Follow along on Instagram.</address>
+        <div class="visit-actions">
+          <a class="btn btn-outline" href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">@major_ink_studios</a>
+        </div>
       </div>
     </div>
   </div>
@@ -175,18 +217,15 @@
 
 <section class="big-cta">
   <div class="wrap">
-    <div class="hero-eyebrow" data-reveal>Two Miramar shops &middot; walk-ins every day</div>
+    <span class="eyebrow" data-reveal>Your turn</span>
     <a href="booking.html" class="big-cta-link" data-cursor="Book">
       <span class="big-cta-line" data-split>Ready for</span>
       <span class="big-cta-line big-cta-outline" data-split>new ink?</span>
     </a>
-    <div class="big-cta-locations">
-      <a href="locations.html" data-reveal><strong>Major Ink Studios</strong><span>2501 Palm Ave Ste 101, Miramar, FL 33025</span></a>
-      <a href="locations.html" data-reveal><strong>Major Ink Studios 2</strong><span>7971 Miramar Pkwy, Miramar, FL 33023</span></a>
-      <div data-reveal><strong>Third location</strong><span>Opening soon — follow Instagram for updates</span></div>
-    </div>
   </div>
 </section>
+
+<a href="booking.html" class="mobile-book">Book a session <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -194,23 +233,24 @@
       <div>
         <h4>Major Ink Studios</h4>
         <p>2501 Palm Ave Ste 101<br>Miramar, FL 33025</p>
-        <p>The hottest shop in south Florida — 2 locations.</p>
+        <p>7971 Miramar Pkwy<br>Miramar, FL 33023</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="artists.html">Artists</a>
         <a href="gallery.html">Gallery</a>
+        <a href="locations.html">Locations</a>
         <a href="booking.html">Book a session</a>
       </div>
       <div>
         <h4>Connect</h4>
         <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
-        <a href="locations.html">Contact &amp; hours</a>
+        <a href="https://americanfirstfinance.com/" target="_blank" rel="noopener">Financing</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
-      <span>Site design placeholder — swap in real photography before launch.</span>
+      <span>Walk-ins welcome every day.</span>
     </div>
   </div>
 </footer>

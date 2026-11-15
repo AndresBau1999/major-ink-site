@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Locations — Major Ink Studios</title>
 <script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
@@ -10,23 +10,23 @@
 <body>
 
 <header class="site-header">
-  <div class="wrap">
+  <div class="nav-pill">
     <a href="index.html" class="logo">MAJOR <span>INK</span></a>
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
       <a href="index.html">Home</a>
       <a href="artists.html">Artists</a>
       <a href="gallery.html">Gallery</a>
       <a href="locations.html" class="active">Locations</a>
       <a href="booking.html" class="nav-cta">Book now</a>
     </nav>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
   </div>
 </header>
 
 <section class="hero" style="padding-bottom: 3rem;">
   <div class="wrap">
     <div class="hero-eyebrow">Find us</div>
-    <h1 data-split data-after-intro>Our locations</h1>
+    <h1 data-split data-after-intro>Come <em class="serif">see us</em></h1>
     <p class="hero-sub" data-reveal data-after-intro>Two shops in Miramar, with a third on the way. Walk-ins welcome every day — no appointment needed, but you can book ahead if you want a specific artist.</p>
   </div>
 </section>
@@ -39,7 +39,7 @@
         <iframe class="location-card-map" loading="lazy" src="https://www.google.com/maps?q=2501+Palm+Ave+Ste+101,+Miramar,+FL+33025&output=embed"></iframe>
         <div class="location-card-body">
           <h3>Major Ink Studios</h3>
-          <p class="location-card-address">2501 Palm Ave Ste 101<br>Miramar, FL 33025<br><span style="opacity:0.6;">Hours &amp; phone — placeholder</span></p>
+          <p class="location-card-address">2501 Palm Ave Ste 101<br>Miramar, FL 33025<br><span style="opacity:0.7;">Walk-ins welcome every day</span></p>
           <div class="location-card-actions">
             <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=2501+Palm+Ave+Ste+101%2C+Miramar%2C+FL+33025" target="_blank" rel="noopener">Get directions</a>
             <a class="btn btn-outline" href="https://maps.google.com/maps?vet=10CAAQoqAOahcKEwiYuf-XyeeWAxUAAAAAHQAAAAAQCQ..i&sca_esv=d00b60e41fd6eca8&fvr=1&pvq=Cg0vZy8xMWducHd2a3dxIhcKEW1ham9yIGluayBzdHVkaW9zEAIYAw&lqi=ChFtYWpvciBpbmsgc3R1ZGlvc0j2jvXd0q6AgAhaKRAAEAEQAhgAGAEYAiIRbWFqb3IgaW5rIHN0dWRpb3MqCAgCEAAQARACkgELdGF0dG9vX3Nob3CaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjBaMHBZVUdoblJSQULgAQD6AQQIABAv&cs=0&um=1&ie=UTF-8&fb=1&gl=us&sa=X&ftid=0x88d9af0e168e2ad7:0x2696c1426b501bba" target="_blank" rel="noopener">Read reviews</a>
@@ -51,7 +51,7 @@
         <iframe class="location-card-map" loading="lazy" src="https://www.google.com/maps?q=Major+Ink+Studios+2,+7971+Miramar+Pkwy,+Miramar,+FL+33023&output=embed"></iframe>
         <div class="location-card-body">
           <h3>Major Ink Studios 2</h3>
-          <p class="location-card-address">7971 Miramar Pkwy<br>Miramar, FL 33023<br><span style="opacity:0.6;">Hours &amp; phone — placeholder</span></p>
+          <p class="location-card-address">7971 Miramar Pkwy<br>Miramar, FL 33023<br><span style="opacity:0.7;">Walk-ins welcome every day</span></p>
           <div class="location-card-actions">
             <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=7971+Miramar+Pkwy%2C+Miramar%2C+FL+33023" target="_blank" rel="noopener">Get directions</a>
             <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Major+Ink+Studios+2+7971+Miramar+Pkwy+Miramar+FL+33023" target="_blank" rel="noopener">Read reviews</a>
@@ -70,9 +70,11 @@
       </div>
 
     </div>
-    <p class="placeholder-note" style="margin-top: 2rem;">Location 2's "Read reviews" link is a Google search fallback for now — swap in the exact Google Business Profile link once you have it, same as location 1.</p>
+    <!-- Location 2's "Read reviews" link is a Google search fallback for now. Swap in the exact Google Business Profile link once you have it, same as location 1. -->
   </div>
 </section>
+
+<a href="booking.html" class="mobile-book">Book a session <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -80,23 +82,24 @@
       <div>
         <h4>Major Ink Studios</h4>
         <p>2501 Palm Ave Ste 101<br>Miramar, FL 33025</p>
-        <p>The hottest shop in south Florida.</p>
+        <p>7971 Miramar Pkwy<br>Miramar, FL 33023</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="artists.html">Artists</a>
         <a href="gallery.html">Gallery</a>
+        <a href="locations.html">Locations</a>
         <a href="booking.html">Book a session</a>
       </div>
       <div>
         <h4>Connect</h4>
         <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
-        <a href="locations.html">Locations &amp; hours</a>
+        <a href="https://americanfirstfinance.com/" target="_blank" rel="noopener">Financing</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
-      <span>Site design placeholder — swap in real photography before launch.</span>
+      <span>Walk-ins welcome every day.</span>
     </div>
   </div>
 </footer>

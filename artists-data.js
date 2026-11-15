@@ -4,6 +4,7 @@
 //   bio: replace the placeholder text once the artist sends their own
 //   portrait: path to a headshot photo — leave as null until they send one
 //   photos: list of their work, already in images/artists/<slug>/
+// After adding photos, run make-thumbs.ps1 so the site has small previews of them.
 const ARTISTS = [
   {
     slug: 'chief',
@@ -83,3 +84,16 @@ const ARTISTS = [
     ]
   }
 ];
+
+// Small preview of a photo (images/thumbs/...), made by make-thumbs.ps1.
+// Pages show the preview and keep the full photo for the lightbox.
+function thumbOf(src) {
+  return src.replace('images/artists/', 'images/thumbs/');
+}
+
+// <img> markup for a preview that falls back to the full photo if the
+// preview hasn't been generated yet.
+function thumbImg(src, alt, extra) {
+  return '<img src="' + thumbOf(src) + '" data-full="' + src + '" alt="' + (alt || '') + '" loading="lazy" decoding="async"' +
+    ' onerror="this.onerror=null;this.src=this.getAttribute(\'data-full\')"' + (extra ? ' ' + extra : '') + '>';
+}

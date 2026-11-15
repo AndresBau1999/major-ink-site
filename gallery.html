@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Gallery — Major Ink Studios</title>
 <script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
@@ -10,23 +10,23 @@
 <body>
 
 <header class="site-header">
-  <div class="wrap">
+  <div class="nav-pill">
     <a href="index.html" class="logo">MAJOR <span>INK</span></a>
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
       <a href="index.html">Home</a>
       <a href="artists.html">Artists</a>
       <a href="gallery.html" class="active">Gallery</a>
       <a href="locations.html">Locations</a>
       <a href="booking.html" class="nav-cta">Book now</a>
     </nav>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
   </div>
 </header>
 
 <section class="hero" style="padding-bottom: 2.5rem;">
   <div class="wrap">
     <div class="hero-eyebrow">Portfolio</div>
-    <h1 data-split data-after-intro>The gallery</h1>
+    <h1 data-split data-after-intro>The <em class="serif">gallery</em></h1>
     <p class="hero-sub" data-reveal data-after-intro>Fine line, color, portrait, and cover-up work from the shop. Filter by artist below, and tap any piece to see it full size.</p>
     <div class="hero-actions filter-row" id="gallery-filters" style="margin-top: 2rem;" data-reveal data-after-intro>
       <button class="btn btn-outline filter-btn is-active" data-filter="all">All</button>
@@ -37,33 +37,45 @@
 <section style="padding-top: 0;">
   <div class="wrap">
     <div class="gallery-masonry" id="gallery-grid" data-lightbox></div>
-    <p class="divider-note">Filtering by artist for now. Once photos are tagged by style (color, fine line, black &amp; grey, cover-up), style filters can go back in.</p>
+    <!-- Filtering by artist for now. Once photos are tagged by style (color, fine line, black & grey, cover-up), style filters can go back in. -->
+    <div class="financing-band" style="margin-top: 4rem;" data-reveal>
+      <div class="financing-band-text">
+        <h3>Seen something you love?</h3>
+        <p>Book with the artist who made it, or bring the idea in and we'll match you.</p>
+      </div>
+      <div class="financing-band-actions">
+        <a class="btn btn-primary" href="booking.html">Book a session <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
   </div>
 </section>
+
+<a href="booking.html" class="mobile-book">Book a session <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
 
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
       <div>
         <h4>Major Ink Studios</h4>
-        <p>2501 Palm Ave #101<br>Miramar, FL</p>
-        <p>The hottest shop in south Florida.</p>
+        <p>2501 Palm Ave Ste 101<br>Miramar, FL 33025</p>
+        <p>7971 Miramar Pkwy<br>Miramar, FL 33023</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="artists.html">Artists</a>
         <a href="gallery.html">Gallery</a>
+        <a href="locations.html">Locations</a>
         <a href="booking.html">Book a session</a>
       </div>
       <div>
         <h4>Connect</h4>
         <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
-        <a href="locations.html">Locations &amp; hours</a>
+        <a href="https://americanfirstfinance.com/" target="_blank" rel="noopener">Financing</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
-      <span>Site design placeholder — swap in real photography before launch.</span>
+      <span>Walk-ins welcome every day.</span>
     </div>
   </div>
 </footer>
@@ -83,7 +95,7 @@
         var src = artist.photos[i];
         if (!src) return;
         html += '<figure class="gallery-item" data-artist="' + artist.slug + '" data-reveal>' +
-          '<img src="' + src + '" alt="Tattoo by ' + artist.name + '" loading="lazy">' +
+          thumbImg(src, 'Tattoo by ' + artist.name) +
           '<figcaption>by ' + artist.name + '</figcaption>' +
         '</figure>';
       });

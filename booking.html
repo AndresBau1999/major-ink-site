@@ -2,36 +2,178 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Book a Session — Major Ink Studios</title>
+<meta name="description" content="Request a tattoo session at Major Ink Studios in Miramar, FL. Pick your artist, tell us the idea, and we'll confirm a time.">
 <script>document.documentElement.classList.add('js');try{var s=sessionStorage;if(s.getItem('mi-wipe')){document.documentElement.classList.add('is-arriving');s.removeItem('mi-wipe')}if(s.getItem('mi-intro'))document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="site-header">
-  <div class="wrap">
+  <div class="nav-pill">
     <a href="index.html" class="logo">MAJOR <span>INK</span></a>
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
       <a href="index.html">Home</a>
       <a href="artists.html">Artists</a>
       <a href="gallery.html">Gallery</a>
       <a href="locations.html">Locations</a>
       <a href="booking.html" class="nav-cta active">Book now</a>
     </nav>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
   </div>
 </header>
 
-<section class="hero" style="padding-bottom: 2.5rem;">
+<section class="hero" style="padding-bottom: 3rem;">
   <div class="wrap">
-    <div class="hero-eyebrow">Request a session</div>
-    <h1 data-split data-after-intro>Book your tattoo</h1>
-    <p class="hero-sub" data-reveal data-after-intro>Tell us what you're thinking and we'll get back to you to confirm a time. Walk-ins are always welcome too — no need to wait on a form.</p>
-    <div class="financing-band" style="margin-top: 2.5rem;" data-reveal data-after-intro>
+    <div class="hero-eyebrow">Book a session</div>
+    <h1 data-split data-after-intro>Let's make <em class="serif">something</em></h1>
+    <p class="hero-sub" data-reveal data-after-intro>Four quick steps, about two minutes. Someone from the shop follows up by phone or email to confirm a time. Walk-ins are always welcome too.</p>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap">
+
+    <div class="form-success" tabindex="-1">
+      <h2>Request sent.</h2>
+      <p>Someone from Major Ink will reach out by phone or email to confirm your appointment.</p>
+      <div class="hero-actions" style="margin-top: 1.5rem;">
+        <a class="btn btn-outline" href="gallery.html">Browse the gallery</a>
+        <a class="btn btn-outline" href="index.html">Back to home</a>
+      </div>
+    </div>
+
+    <div class="book-layout" data-reveal>
+      <form id="booking-form" novalidate>
+        <div class="book-progress" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+        <fieldset class="book-step" data-step="1">
+          <div class="book-step-head">
+            <span class="step-count">Step 1 of 4</span>
+            <h2>Pick your <em class="serif">artist</em></h2>
+            <p>Tap an artist to book with them, or leave it to us.</p>
+          </div>
+          <div class="pick-grid" id="artist-picks"></div>
+          <div class="field" style="margin: 0;"><input type="hidden" id="artist" name="artist" value=""></div>
+        </fieldset>
+
+        <fieldset class="book-step" data-step="2">
+          <div class="book-step-head">
+            <span class="step-count">Step 2 of 4</span>
+            <h2>What are we <em class="serif">making?</em></h2>
+            <p>Rough answers are fine. Your artist will go over the details with you.</p>
+          </div>
+          <div class="field">
+            <span class="chip-label" id="style-label">Style</span>
+            <div class="chip-group" data-chips="style" role="group" aria-labelledby="style-label">
+              <button type="button" class="chip">Fine line</button>
+              <button type="button" class="chip">Black &amp; grey</button>
+              <button type="button" class="chip">Color</button>
+              <button type="button" class="chip">Portrait / realism</button>
+              <button type="button" class="chip">Cover-up</button>
+              <button type="button" class="chip">Not sure yet</button>
+            </div>
+            <input type="hidden" id="style" name="style" value="" required>
+            <span class="field-error">Pick a style, or "Not sure yet".</span>
+          </div>
+          <div class="field">
+            <span class="chip-label" id="placement-label">Placement</span>
+            <div class="chip-group" data-chips="placement-pick" role="group" aria-labelledby="placement-label">
+              <button type="button" class="chip">Forearm</button>
+              <button type="button" class="chip">Upper arm</button>
+              <button type="button" class="chip">Hand</button>
+              <button type="button" class="chip">Leg</button>
+              <button type="button" class="chip">Back</button>
+              <button type="button" class="chip">Chest</button>
+              <button type="button" class="chip">Ribs</button>
+              <button type="button" class="chip">Neck</button>
+            </div>
+            <input type="text" id="placement-text" placeholder="Or describe it, e.g. inner forearm, left side" aria-label="Placement" style="margin-top: 0.75rem;">
+            <input type="hidden" id="placement" name="placement" value="">
+          </div>
+          <div class="field">
+            <span class="chip-label" id="size-label">Size</span>
+            <div class="chip-group" data-chips="size" role="group" aria-labelledby="size-label">
+              <button type="button" class="chip" data-value="Small">Small &middot; under 3"</button>
+              <button type="button" class="chip" data-value="Medium">Medium &middot; palm-sized</button>
+              <button type="button" class="chip" data-value="Large">Large &middot; half sleeve</button>
+              <button type="button" class="chip" data-value="Full piece">Sleeve, back or chest</button>
+            </div>
+            <input type="hidden" id="size" value="">
+          </div>
+        </fieldset>
+
+        <fieldset class="book-step" data-step="3">
+          <div class="book-step-head">
+            <span class="step-count">Step 3 of 4</span>
+            <h2>Tell us the <em class="serif">idea</em></h2>
+            <p>What it is, what it means to you, colors, any tattoo already in that spot, and a budget range if you have one.</p>
+          </div>
+          <div class="field">
+            <label for="details">The piece</label>
+            <textarea id="details" name="details" rows="7" placeholder="e.g. A realistic lion on my forearm, black and grey, with a crown of thorns. Covering a small old tattoo. Budget around $600." required></textarea>
+            <span class="field-error">Give us a few details about the piece.</span>
+          </div>
+        </fieldset>
+
+        <fieldset class="book-step" data-step="4">
+          <div class="book-step-head">
+            <span class="step-count">Step 4 of 4</span>
+            <h2>How do we <em class="serif">reach you?</em></h2>
+            <p>We'll use this only to confirm your appointment.</p>
+          </div>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" placeholder="Jordan Rivera" autocomplete="name" required>
+              <span class="field-error">Enter your name.</span>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(954) 555-0134" autocomplete="tel" required>
+              <span class="field-error">Enter a phone number.</span>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jordan@email.com" autocomplete="email" required>
+              <span class="field-error">Enter a valid email address.</span>
+            </div>
+          </div>
+          <!-- Honeypot field: hidden from real visitors, catches simple bots -->
+          <div class="field" style="position: absolute; left: -9999px;" aria-hidden="true">
+            <label for="website">Leave this field blank</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="field-error" id="form-level-error" style="display: block; margin-bottom: 0.5rem;"></div>
+          <p class="form-note">Submitting sends your request straight to the shop. We'll follow up by phone or email to confirm your appointment.</p>
+        </fieldset>
+
+        <div class="book-nav">
+          <button type="button" class="btn btn-outline" id="step-back">&larr; Back</button>
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-primary" id="step-next">Next <span class="btn-arrow" aria-hidden="true">&rarr;</span></button>
+          <button type="submit" class="btn btn-primary no-arrow" id="submit-btn" hidden>Submit request</button>
+        </div>
+      </form>
+
+      <aside class="book-summary" aria-live="polite">
+        <img class="summary-img" alt="">
+        <h3>Your request</h3>
+        <dl>
+          <div><dt>Artist</dt><dd data-sum="artist" class="is-empty">No preference</dd></div>
+          <div><dt>Style</dt><dd data-sum="style" class="is-empty">Not picked yet</dd></div>
+          <div><dt>Placement</dt><dd data-sum="placement" class="is-empty">Not picked yet</dd></div>
+          <div><dt>Idea</dt><dd data-sum="details" class="is-empty">Not written yet</dd></div>
+        </dl>
+        <p class="walkin">Rather just come in? Walk-ins are welcome every day at both Miramar shops.</p>
+      </aside>
+    </div>
+
+    <div class="financing-band" style="margin-top: 4rem;" data-reveal>
       <div class="financing-band-text">
         <h3>Need financing?</h3>
-        <p>We accept American First Finance — all credit welcome, pay over time.</p>
+        <p>We accept American First Finance. All credit welcome, pay over time.</p>
       </div>
       <div class="financing-band-actions">
         <a class="btn btn-outline" href="https://americanfirstfinance.com/how-it-works/" target="_blank" rel="noopener">How it works</a>
@@ -40,106 +182,200 @@
   </div>
 </section>
 
-<section style="padding-top: 0;">
-  <div class="wrap" style="max-width: 760px;" data-reveal>
-
-    <div class="form-success">
-      Request received. Someone from Major Ink will reach out to confirm your appointment.
-    </div>
-
-    <form id="booking-form" novalidate>
-      <div class="form-grid">
-        <div class="field">
-          <label for="name">Full name</label>
-          <input type="text" id="name" name="name" placeholder="Jordan Rivera" required>
-          <span class="field-error">Enter your name.</span>
-        </div>
-        <div class="field">
-          <label for="phone">Phone number</label>
-          <input type="tel" id="phone" name="phone" placeholder="(954) 555-0134" required>
-          <span class="field-error">Enter a phone number.</span>
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="jordan@email.com" required>
-          <span class="field-error">Enter a valid email address.</span>
-        </div>
-        <div class="field">
-          <label for="artist">Preferred artist</label>
-          <select id="artist" name="artist">
-            <option value="">No preference</option>
-            <option>Chief</option>
-            <option>Fernando</option>
-            <option>Nyah</option>
-            <option>Veronika</option>
-            <option>Jessi</option>
-            <option>Batu</option>
-            <option>Mani</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="style">Style</label>
-          <select id="style" name="style" required>
-            <option value="">Select a style</option>
-            <option>Fine line</option>
-            <option>Color</option>
-            <option>Black &amp; grey</option>
-            <option>Cover-up</option>
-            <option>Portrait / realism</option>
-          </select>
-          <span class="field-error">Select a style.</span>
-        </div>
-        <div class="field">
-          <label for="placement">Placement</label>
-          <input type="text" id="placement" name="placement" placeholder="Forearm, back, ribs...">
-        </div>
-        <div class="field full">
-          <label for="details">Tell us about the piece</label>
-          <textarea id="details" name="details" placeholder="Size, references, any prior work in the area, budget range..." required></textarea>
-          <span class="field-error">Give us a few details about the piece.</span>
-        </div>
-      </div>
-
-      <!-- Honeypot field: hidden from real visitors via CSS, catches simple bots -->
-      <div class="field" style="position: absolute; left: -9999px;" aria-hidden="true">
-        <label for="website">Leave this field blank</label>
-        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-      </div>
-
-      <div class="field-error" id="form-level-error" style="margin-bottom: 1rem;"></div>
-      <button type="submit" class="btn btn-primary" id="submit-btn">Submit request</button>
-      <p class="form-note">Submitting sends your request straight to the shop. We'll follow up by phone or email to confirm your appointment.</p>
-    </form>
-  </div>
-</section>
-
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
       <div>
         <h4>Major Ink Studios</h4>
-        <p>2501 Palm Ave #101<br>Miramar, FL</p>
-        <p>The hottest shop in south Florida.</p>
+        <p>2501 Palm Ave Ste 101<br>Miramar, FL 33025</p>
+        <p>7971 Miramar Pkwy<br>Miramar, FL 33023</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="artists.html">Artists</a>
         <a href="gallery.html">Gallery</a>
+        <a href="locations.html">Locations</a>
         <a href="booking.html">Book a session</a>
       </div>
       <div>
         <h4>Connect</h4>
         <a href="https://instagram.com/major_ink_studios" target="_blank" rel="noopener">Instagram</a>
-        <a href="locations.html">Locations &amp; hours</a>
+        <a href="https://americanfirstfinance.com/" target="_blank" rel="noopener">Financing</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Major Ink Studios. All rights reserved.</span>
-      <span>Site design placeholder — swap in real photography before launch.</span>
+      <span>Walk-ins welcome every day.</span>
     </div>
   </div>
 </footer>
 
+<script src="artists-data.js"></script>
+<script>
+  // Step-by-step booking. Fields keep the same names the booking backend
+  // expects (name, phone, email, artist, style, placement, details, website);
+  // script.js still does the final validation and the POST.
+  (function () {
+    var form = document.getElementById('booking-form');
+    var steps = Array.prototype.slice.call(form.querySelectorAll('.book-step'));
+    var bars = form.querySelectorAll('.book-progress span');
+    var back = document.getElementById('step-back');
+    var next = document.getElementById('step-next');
+    var submit = document.getElementById('submit-btn');
+    var summary = document.querySelector('.book-summary');
+    var current = 0;
+
+    // ----- Step 1: artist cards -----
+    var picks = document.getElementById('artist-picks');
+    var artistInput = document.getElementById('artist');
+    picks.innerHTML = ARTISTS.map(function (a) {
+      var role = /^PLACEHOLDER/.test(a.role) ? '' : a.role;
+      return '<button type="button" class="pick-card" aria-pressed="false" data-artist="' + a.name + '" data-img="' + thumbOf(a.photos[0]) + '">' +
+        thumbImg(a.photos[0], '') +
+        '<span class="pick-label"><strong>' + a.name + '</strong><small>' + role + '</small></span>' +
+      '</button>';
+    }).join('') +
+      '<button type="button" class="pick-card is-any" aria-pressed="false" data-artist="">' +
+        '<strong>No preference</strong><small>We\'ll match you with the right artist</small>' +
+      '</button>';
+
+    function chooseArtist(name) {
+      artistInput.value = name;
+      picks.querySelectorAll('.pick-card').forEach(function (card) {
+        card.setAttribute('aria-pressed', card.getAttribute('data-artist') === name ? 'true' : 'false');
+      });
+      updateSummary();
+    }
+    picks.addEventListener('click', function (e) {
+      var card = e.target.closest('.pick-card');
+      if (card) chooseArtist(card.getAttribute('data-artist'));
+    });
+
+    // ----- Step 2: chips -----
+    var placementText = document.getElementById('placement-text');
+    var placement = document.getElementById('placement');
+    var size = document.getElementById('size');
+    function composePlacement() {
+      placement.value = [placementText.value.trim(), size.value].filter(Boolean).join(' · ');
+      updateSummary();
+    }
+    form.querySelectorAll('[data-chips]').forEach(function (group) {
+      var target = group.getAttribute('data-chips');
+      group.addEventListener('click', function (e) {
+        var chip = e.target.closest('.chip');
+        if (!chip) return;
+        var wasOn = chip.getAttribute('aria-pressed') === 'true';
+        group.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+        var value = wasOn ? '' : (chip.getAttribute('data-value') || chip.textContent.trim());
+        if (!wasOn) chip.setAttribute('aria-pressed', 'true');
+        if (target === 'style') {
+          document.getElementById('style').value = value;
+          if (value) group.closest('.field').classList.remove('error');
+          updateSummary();
+        } else if (target === 'placement-pick') {
+          placementText.value = value;
+          composePlacement();
+        } else if (target === 'size') {
+          size.value = value;
+          composePlacement();
+        }
+      });
+    });
+    placementText.addEventListener('input', function () {
+      form.querySelectorAll('[data-chips="placement-pick"] .chip').forEach(function (c) {
+        c.setAttribute('aria-pressed', c.textContent.trim() === placementText.value.trim() ? 'true' : 'false');
+      });
+      composePlacement();
+    });
+    document.getElementById('details').addEventListener('input', function () {
+      if (this.value.trim()) this.closest('.field').classList.remove('error');
+      updateSummary();
+    });
+
+    // ----- Summary card -----
+    function setSum(key, value, empty) {
+      var dd = summary.querySelector('[data-sum="' + key + '"]');
+      dd.textContent = value || empty;
+      dd.classList.toggle('is-empty', !value);
+    }
+    function updateSummary() {
+      setSum('artist', artistInput.value, 'No preference');
+      setSum('style', document.getElementById('style').value, 'Not picked yet');
+      setSum('placement', placement.value, 'Not picked yet');
+      var d = document.getElementById('details').value.trim();
+      setSum('details', d.length > 90 ? d.slice(0, 90) + '…' : d, 'Not written yet');
+      var card = picks.querySelector('.pick-card[aria-pressed="true"]');
+      var img = summary.querySelector('.summary-img');
+      var src = card && card.getAttribute('data-img');
+      img.classList.toggle('is-shown', !!src);
+      if (src) img.src = src;
+    }
+
+    // ----- Step navigation -----
+    function stepValid(i) {
+      if (i === 1) {
+        var ok = !!document.getElementById('style').value;
+        document.getElementById('style').closest('.field').classList.toggle('error', !ok);
+        return ok;
+      }
+      if (i === 2) {
+        var details = document.getElementById('details');
+        var ok2 = !!details.value.trim();
+        details.closest('.field').classList.toggle('error', !ok2);
+        if (!ok2) details.focus();
+        return ok2;
+      }
+      return true;
+    }
+    function go(i, focus) {
+      current = Math.max(0, Math.min(steps.length - 1, i));
+      steps.forEach(function (s, n) { s.classList.toggle('is-active', n === current); });
+      Array.prototype.forEach.call(bars, function (b, n) { b.classList.toggle('is-done', n <= current); });
+      back.hidden = current === 0;
+      next.hidden = current === steps.length - 1;
+      submit.hidden = current !== steps.length - 1;
+      if (focus) {
+        var top = form.getBoundingClientRect().top + window.scrollY - 110;
+        if (window.scrollY > top) window.scrollTo({ top: top, behavior: 'smooth' });
+        var heading = steps[current].querySelector('h2');
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }
+    next.addEventListener('click', function () { if (stepValid(current)) go(current + 1, true); });
+    back.addEventListener('click', function () { go(current - 1, true); });
+
+    // Enter in a text field moves forward instead of submitting early.
+    form.addEventListener('submit', function (e) {
+      if (current < steps.length - 1) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (stepValid(current)) go(current + 1, true);
+      }
+    });
+
+    // If the shop's server rejects a field, jump back to the step that has it.
+    form.addEventListener('booking-errors', function () {
+      var bad = form.querySelector('.field.error');
+      if (!bad) return;
+      var i = steps.indexOf(bad.closest('.book-step'));
+      if (i > -1 && i !== current) go(i, true);
+    });
+    form.addEventListener('booking-sent', function () {
+      document.querySelector('.book-layout').style.display = 'none';
+      var done = document.querySelector('.form-success');
+      done.style.display = 'block';
+      done.focus({ preventScroll: true });
+      window.scrollTo({ top: done.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+    });
+
+    // "Book with <artist>" links pass ?artist=Name: preselect and start at step 2.
+    var requested = new URLSearchParams(location.search).get('artist') || '';
+    var match = ARTISTS.filter(function (a) { return a.name.toLowerCase() === requested.toLowerCase(); })[0];
+    chooseArtist(match ? match.name : '');
+    go(match ? 1 : 0, false);
+  })();
+</script>
 <script src="script.js"></script>
 <script src="fx.js"></script>
 </body>

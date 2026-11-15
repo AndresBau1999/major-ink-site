@@ -127,7 +127,7 @@
     if (!header) return;
     var bar = document.createElement('div');
     bar.className = 'scroll-progress';
-    header.appendChild(bar);
+    (header.querySelector('.nav-pill') || header).appendChild(bar);
     var nav = header.querySelector('.main-nav');
     var hidden = false;
     onTick(function () {
@@ -292,8 +292,8 @@
       var role = /^PLACEHOLDER/.test(a.role) ? a.photos.length + ' pieces in the book' : a.role;
       return '<a class="artist-slide" href="artists.html#' + a.slug + '" data-cursor="View work">' +
           '<div class="artist-slide-media">' +
-            '<img src="' + a.photos[0] + '" alt="Tattoo by ' + a.name + '" loading="lazy">' +
-            (a.photos[1] ? '<img class="alt" src="' + a.photos[1] + '" alt="" loading="lazy">' : '') +
+            '<img src="' + thumbOf(a.photos[0]) + '" alt="Tattoo by ' + a.name + '" loading="lazy">' +
+            (a.photos[1] ? '<img class="alt" src="' + thumbOf(a.photos[1]) + '" alt="" loading="lazy">' : '') +
           '</div>' +
           '<div class="artist-slide-meta">' +
             '<span class="artist-slide-num">' + String(i + 1).padStart(2, '0') + ' / ' + String(ARTISTS.length).padStart(2, '0') + '</span>' +
@@ -489,7 +489,8 @@
     function show(i) {
       index = (i + items.length) % items.length;
       var img = items[index];
-      bigImg.src = img.currentSrc || img.src;
+      // Grids show small previews; the lightbox loads the full photo.
+      bigImg.src = img.getAttribute('data-full') || img.currentSrc || img.src;
       bigImg.alt = img.alt;
       caption.textContent = img.alt;
       count.textContent = (index + 1) + ' / ' + items.length;
@@ -519,6 +520,7 @@
         if (!cell.hasAttribute('data-cursor')) cell.setAttribute('data-cursor', 'View');
       });
       group.addEventListener('click', function (e) {
+        if (group.__dragged) return; // the pointer was dragging the row, not tapping a photo
         var cell = e.target.closest('[data-lightbox] > *');
         if (!cell || cell.parentNode !== group) return;
         var img = cellImage(cell);
@@ -561,6 +563,133 @@
     });
   }
 
+  // ---------- Home hero: artwork pops up along the cursor's path ----------
+  // Touch screens get the same effect on a timer, at random spots.
+  function initImageTrail() {
+    var hero = document.querySelector('[data-trail]');
+    if (!hero || reduceMotion || typeof ARTISTS === 'undefined') return;
+    var layer = hero.querySelector('.trail-layer');
+    var sources = [];
+    ARTISTS.forEach(function (a) { a.photos.slice(0, 4).forEach(function (src) { sources.push(thumbOf(src)); }); });
+    for (var i = sources.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = sources[i]; sources[i] = sources[j]; sources[j] = t; }
+    sources.slice(0, 10).forEach(function (src) { new Image().src = src; });
+    var next = 0, last = null, live = 0;
+
+    function spawn(x, y) {
+      if (live > 14) return;
+      var img = document.createElement('img');
+      img.className = 'trail-img';
+      img.alt = '';
+      img.src = sources[next++ % sources.length];
+      img.style.left = x + 'px';
+      img.style.top = y + 'px';
+      img.style.setProperty('--r', (Math.random() * 16 - 8).toFixed(1) + 'deg');
+      layer.appendChild(img);
+      live++;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { img.classList.add('is-in'); }); });
+      setTimeout(function () { img.classList.add('is-out'); }, finePointer ? 650 : 1500);
+      setTimeout(function () { img.remove(); live--; }, finePointer ? 1500 : 2400);
+    }
+
+    if (finePointer) {
+      hero.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        var r = hero.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        if (last && Math.hypot(x - last.x, y - last.y) < 110) return;
+        last = { x: x, y: y };
+        spawn(x, y);
+      });
+      hero.addEventListener('pointerleave', function () { last = null; });
+    } else {
+      var timer = null;
+      var run = function () {
+        if (document.hidden) return;
+        var r = hero.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        // Keep to the empty band above the intro text so it stays readable.
+        var text = hero.querySelector('.hero-row').getBoundingClientRect();
+        var top = r.height * 0.16, bottom = Math.max(top + 40, text.top - r.top - 60);
+        spawn(r.width * (0.2 + Math.random() * 0.6), top + Math.random() * (bottom - top));
+      };
+      whenIntroDone(function () { run(); timer = setInterval(run, 900); });
+    }
+  }
+
+  // ---------- The wall: columns of artwork drifting in opposite directions ----------
+  function initWall() {
+    var wall = document.querySelector('[data-wall]');
+    if (!wall || typeof ARTISTS === 'undefined') return;
+    var plane = wall.querySelector('.wall-plane');
+    var all = [];
+    ARTISTS.forEach(function (a) { a.photos.forEach(function (src) { all.push({ src: src, name: a.name }); }); });
+    var cols = 6, perCol = 10, html = '';
+    for (var c = 0; c < cols; c++) {
+      html += '<div class="wall-col">';
+      for (var k = 0; k < perCol; k++) {
+        var item = all[(c * 7 + k * 5) % all.length];
+        html += '<img src="' + thumbOf(item.src) + '" alt="" loading="lazy" decoding="async">';
+      }
+      html += '</div>';
+    }
+    plane.innerHTML = html;
+    if (reduceMotion) return;
+    var colEls = plane.querySelectorAll('.wall-col');
+    onTick(function () {
+      var r = wall.getBoundingClientRect();
+      var vh = window.innerHeight;
+      if (r.bottom < 0 || r.top > vh) return;
+      var p = (vh - r.top) / (vh + r.height); // 0 entering, 1 leaving
+      colEls.forEach(function (col, i) {
+        var dir = i % 2 ? 1 : -1;
+        var y = -25 + dir * (p - 0.5) * 22;
+        col.style.transform = 'translate3d(0,' + y.toFixed(2) + '%,0)';
+      });
+    });
+  }
+
+  // ---------- Phones: "Book a session" bar after the hero, hidden near the footer CTA ----------
+  function initMobileBook() {
+    var bar = document.querySelector('.mobile-book');
+    if (!bar) return;
+    var endZone = document.querySelector('.big-cta, .site-footer');
+    var nearEnd = false;
+    if (endZone && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) { nearEnd = entries[0].isIntersecting; }).observe(endZone);
+    }
+    var shown = false;
+    onTick(function () {
+      var want = scroll.y > window.innerHeight * 0.5 && !nearEnd;
+      if (want !== shown) { shown = want; bar.classList.toggle('is-shown', shown); }
+    });
+  }
+
+  // ---------- Drag-to-scroll photo rows (mouse only; touch scrolls natively) ----------
+  function initDragScroll() {
+    document.querySelectorAll('[data-drag-scroll]').forEach(function (row) {
+      var startX = 0, startLeft = 0, down = false, moved = 0;
+      row.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        down = true; moved = 0;
+        startX = e.clientX; startLeft = row.scrollLeft;
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - startX;
+        moved = Math.max(moved, Math.abs(dx));
+        if (moved > 4) row.classList.add('is-dragging');
+        row.scrollLeft = startLeft - dx;
+      });
+      window.addEventListener('pointerup', function () {
+        if (!down) return;
+        down = false;
+        row.classList.remove('is-dragging');
+        if (moved > 4) { row.__dragged = true; setTimeout(function () { row.__dragged = false; }, 0); }
+      });
+      row.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    });
+  }
+
   // ---------- Giant footer wordmark ----------
   function initFooterWordmark() {
     var footer = document.querySelector('.site-footer');
@@ -586,6 +715,10 @@
     initHeroFloats();
     initParallax();
     initArtistStrip();
+    initImageTrail();
+    initWall();
+    initMobileBook();
+    initDragScroll();
     initHoverPreview();
     initLightbox();
     initCursor();
