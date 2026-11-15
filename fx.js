@@ -345,48 +345,26 @@
     });
   }
 
-  // ---------- Photo that pops up beside the hovered list row ----------
-  // The photo is parked in the empty space on the right of the row and only
-  // leans a little toward the mouse, so it never sits on top of the pointer
-  // or the heading text.
+  // ---------- List rows: a small photo that opens inside the row ----------
+  // The photo lives in the row itself (between the text and the number), so it
+  // can't float over other content or chase the cursor around the page.
   function initHoverPreview() {
-    if (!finePointer || reduceMotion) return;
-    document.querySelectorAll('[data-hover-list]').forEach(function (list) {
-      var preview = document.createElement('div');
-      preview.className = 'hover-preview';
-      preview.setAttribute('aria-hidden', 'true');
-      var img = document.createElement('img');
-      img.alt = '';
-      preview.appendChild(img);
-      document.body.appendChild(preview);
-
-      list.querySelectorAll('[data-hover-img]').forEach(function (row) {
-        var pre = new Image();
-        pre.src = row.getAttribute('data-hover-img');
-      });
-
-      var activeRow = null, pos = null, rot = 0;
-      onTick(function () {
-        var row = hovered && hovered.closest ? hovered.closest('[data-hover-img]') : null;
-        if (row && !list.contains(row)) row = null;
-        if (row !== activeRow) {
-          activeRow = row;
-          if (row) img.src = row.getAttribute('data-hover-img');
-          preview.classList.toggle('is-active', !!row);
-        }
-        if (!activeRow) return;
-        var r = activeRow.getBoundingClientRect();
-        var w = preview.offsetWidth;
-        var tx = r.right - 110 - w / 2 + (mouse.x - (r.left + r.width / 2)) * 0.04;
-        var ty = r.top + r.height / 2 + (mouse.y - (r.top + r.height / 2)) * 0.25;
-        if (!pos) pos = { x: tx, y: ty };
-        var dx = tx - pos.x;
-        pos.x = lerp(pos.x, tx, ease(0.2));
-        pos.y = lerp(pos.y, ty, ease(0.2));
-        rot = lerp(rot, clamp(dx * 0.3, -8, 8), ease(0.15));
-        preview.style.transform = 'translate3d(' + pos.x.toFixed(1) + 'px,' + pos.y.toFixed(1) + 'px,0) translate(-50%,-50%) rotate(' + (rot - 3).toFixed(2) + 'deg)';
-      });
+    document.querySelectorAll('[data-hover-list] [data-hover-img]').forEach(function (row) {
+      var thumb = document.createElement('span');
+      thumb.className = 'row-thumb';
+      thumb.setAttribute('aria-hidden', 'true');
+      thumb.innerHTML = '<img src="' + row.getAttribute('data-hover-img') + '" alt="" loading="lazy" decoding="async">';
+      row.insertBefore(thumb, row.lastElementChild);
     });
+
+    // Rows slide under a still mouse while the page scrolls; don't let that
+    // light them up. Hover effects resume a moment after scrolling stops.
+    var timer = null;
+    window.addEventListener('scroll', function () {
+      root.classList.add('is-scrolling');
+      clearTimeout(timer);
+      timer = setTimeout(function () { root.classList.remove('is-scrolling'); }, 180);
+    }, { passive: true });
   }
 
   // ---------- Custom cursor ----------

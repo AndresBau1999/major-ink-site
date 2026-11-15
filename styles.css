@@ -1347,3 +1347,27 @@ input, select, textarea { border-radius: var(--radius-sm); }
 .shop-reel img { width: clamp(240px, 26vw, 360px); }
 .shop-reel img:nth-child(odd) { margin-top: 2.5rem; }
 @media (max-width: 860px) { .shop-reel img { width: 66vw; } .shop-reel img:nth-child(odd) { margin-top: 1.25rem; } }
+/* "Known for" rows: the photo opens inside the row instead of floating */
+.hover-list .row-item { grid-template-columns: 1fr auto auto; }
+.row-thumb {
+  display: block; position: relative;
+  width: 0; height: 7.5rem;
+  border-radius: 12px; overflow: hidden;
+  opacity: 0; rotate: -4deg;
+  transition: width 0.55s var(--ease), opacity 0.3s ease, rotate 0.55s var(--ease);
+}
+.row-thumb img { width: 5.6rem; height: 100%; object-fit: cover; display: block; }
+@media (hover: hover) {
+  .hover-list .row-item:hover .row-thumb { width: 5.6rem; opacity: 1; rotate: 0deg; }
+}
+@media (hover: none) {
+  .row-thumb { width: 4.25rem; height: 5.6rem; opacity: 1; rotate: 0deg; }
+  .row-thumb img { width: 4.25rem; }
+}
+/* While the page scrolls, rows passing under a still mouse don't react */
+.is-scrolling .hover-list .row-item { pointer-events: none; }
+.hover-preview { display: none; }
+@media (hover: hover) {
+  /* The photo slides in with the number so both stay clear of the pink edge */
+  .hover-list .row-item:hover > .row-thumb { transform: translateX(-1.5rem); }
+}
