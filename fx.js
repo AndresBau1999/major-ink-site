@@ -345,18 +345,8 @@
     });
   }
 
-  // ---------- List rows: a small photo that opens inside the row ----------
-  // The photo lives in the row itself (between the text and the number), so it
-  // can't float over other content or chase the cursor around the page.
+  // ---------- List rows: text-only hover ----------
   function initHoverPreview() {
-    document.querySelectorAll('[data-hover-list] [data-hover-img]').forEach(function (row) {
-      var thumb = document.createElement('span');
-      thumb.className = 'row-thumb';
-      thumb.setAttribute('aria-hidden', 'true');
-      thumb.innerHTML = '<img src="' + row.getAttribute('data-hover-img') + '" alt="" loading="lazy" decoding="async">';
-      row.insertBefore(thumb, row.lastElementChild);
-    });
-
     // Rows slide under a still mouse while the page scrolls; don't let that
     // light them up. Hover effects resume a moment after scrolling stops.
     var timer = null;

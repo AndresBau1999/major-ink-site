@@ -1348,7 +1348,7 @@ input, select, textarea { border-radius: var(--radius-sm); }
 .shop-reel img:nth-child(odd) { margin-top: 2.5rem; }
 @media (max-width: 860px) { .shop-reel img { width: 66vw; } .shop-reel img:nth-child(odd) { margin-top: 1.25rem; } }
 /* "Known for" rows: the photo opens inside the row instead of floating */
-.hover-list .row-item { grid-template-columns: 1fr auto auto; }
+.hover-list .row-item { grid-template-columns: 1fr auto; }
 .row-thumb {
   display: block; position: relative;
   width: 0; height: 7.5rem;
