@@ -666,7 +666,7 @@
     mark.className = 'footer-wordmark';
     mark.setAttribute('aria-hidden', 'true');
     mark.innerHTML = 'MAJOR INK'.split('').map(function (ch) {
-      return ch === ' ' ? '<span class="gap"> </span>' : '<span>' + ch + '</span>';
+      return ch === ' ' ? '<span class="flamingo"></span>' : '<span>' + ch + '</span>';
     }).join('');
     footer.appendChild(mark);
   }

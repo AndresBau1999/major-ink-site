@@ -495,7 +495,8 @@ body.is-loading, body.is-locked { overflow: hidden; }
   padding-bottom: 0.05em;
 }
 .preloader-word span { display: inline-block; animation: rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.preloader-word span:nth-child(2) { color: var(--pink); animation-delay: 0.12s; }
+.preloader-word span:nth-child(3) { color: var(--pink); animation-delay: 0.24s; }
+.preloader-word .flamingo { animation-delay: 0.12s; }
 .preloader-bottom { display: flex; justify-content: space-between; align-items: flex-end; color: var(--paper-dim); font-size: 0.85rem; }
 .preloader-count { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.8; color: var(--paper); }
 .preloader-count::after { content: '%'; color: var(--pink); }
@@ -1082,7 +1083,7 @@ section { padding: 7rem 0; }
 .hero-hint { font-size: 0.8rem; color: var(--paper-dim); text-align: right; max-width: 18ch; }
 .hero-home .hero-wordmark {
   position: relative; z-index: 2;
-  font-size: 30.6vw; line-height: 0.78;
+  font-size: 25.6vw; line-height: 0.78;
   white-space: nowrap; text-align: center;
   margin: 0 0 -0.035em; max-width: none !important;
   letter-spacing: -0.005em;
@@ -1371,3 +1372,74 @@ input, select, textarea { border-radius: var(--radius-sm); }
   /* The photo slides in with the number so both stay clear of the pink edge */
   .hover-list .row-item:hover > .row-thumb { transform: translateX(-1.5rem); }
 }
+
+/* ---------- The flamingo from the shop logo, set between MAJOR and INK ---------- */
+:root { --flamingo: var(--pink); }
+.flamingo {
+  display: inline-block;
+  height: 0.92em; width: 0.534em;
+  margin: 0 0.04em 0 0.06em;
+  background: var(--flamingo);
+  -webkit-mask: url("images/flamingo.png") center bottom / contain no-repeat;
+  mask: url("images/flamingo.png") center bottom / contain no-repeat;
+  vertical-align: baseline;
+}
+.logo { gap: 0; }
+.logo .flamingo { height: 1.05em; width: 0.61em; margin: 0 0.06em 0 0.08em; }
+.preloader-word .flamingo { margin: 0 0.06em; }
+.js .hero-wordmark .flamingo {
+  opacity: 0; transform: translateY(35%) rotate(-10deg); transform-origin: 50% 100%;
+  transition: opacity 0.6s ease 0.3s, transform 1.1s var(--ease) 0.3s;
+}
+.js .hero-wordmark.is-in .flamingo { opacity: 1; transform: none; }
+
+/* ---------- Shop logo: small round badge in the footer ---------- */
+.footer-logo { display: block; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; margin-bottom: 1.1rem; }
+
+/* ---------- Home: founder teaser ---------- */
+.founder { padding: 3rem 0 5rem; }
+.founder-card {
+  display: grid; grid-template-columns: 220px 1fr auto; gap: 2rem; align-items: center;
+  padding: 1.25rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--ink-2);
+}
+.founder-card img.founder-photo { width: 220px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-sm); display: block; }
+.founder-card h2 { font-size: clamp(2.5rem, 5vw, 4rem); }
+.founder-card p { color: var(--paper-dim); max-width: 46ch; margin-top: 0.75rem; }
+@media (max-width: 760px) {
+  .founder-card { grid-template-columns: 1fr; }
+  .founder-card img.founder-photo { width: 100%; aspect-ratio: 4 / 3; }
+}
+
+/* ---------- Meet the owner page ---------- */
+.owner-intro { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.owner-portrait { position: relative; }
+.owner-portrait > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); display: block; }
+.owner-portrait .owner-badge {
+  position: absolute; right: -1.25rem; bottom: -1.25rem;
+  width: clamp(96px, 11vw, 140px); height: auto; aspect-ratio: 1;
+  border-radius: 50%; border: 4px solid var(--ink); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+.owner-quote { font-family: var(--serif); font-style: italic; font-size: clamp(1.9rem, 3.4vw, 2.75rem); line-height: 1.15; color: var(--paper); }
+.owner-quote::before { content: '\201C'; color: var(--pink); }
+.owner-quote::after { content: '\201D'; color: var(--pink); }
+.owner-quote-by { display: block; margin-top: 0.75rem; font-size: 0.85rem; color: var(--paper-dim); letter-spacing: 0.08em; text-transform: uppercase; }
+.owner-copy { color: var(--paper-dim); font-size: 1.05rem; margin-top: 1.75rem; max-width: 50ch; }
+.owner-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; margin: 2rem 0 0; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+.owner-facts dt { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-dim); }
+.owner-facts dd { margin: 0.2rem 0 0; font-size: 1rem; }
+.owner-facts a { color: var(--pink); }
+.logo-feature { display: grid; grid-template-columns: auto 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.logo-feature img { width: clamp(180px, 24vw, 280px); aspect-ratio: 1; border-radius: var(--radius); display: block; }
+.logo-feature p { color: var(--paper-dim); max-width: 44ch; margin-top: 1rem; font-size: 1.05rem; }
+@media (max-width: 860px) {
+  .owner-intro { grid-template-columns: 1fr; }
+  .owner-portrait .owner-badge { right: 0.75rem; bottom: -1.5rem; }
+  .logo-feature { grid-template-columns: 1fr; justify-items: start; }
+}
+@media (max-width: 420px) { .owner-facts { grid-template-columns: 1fr; } }
+/* Split headings put each word on vertical-align: top, so the hero flamingo
+   aligns the same way; the negative margin sets its feet on the letters'
+   baseline (0.69em down in Bebas at this line-height), head above the caps. */
+.hero-wordmark .flamingo { vertical-align: top; margin-top: -0.23em; }
+.footer-wordmark .flamingo { background: var(--line-strong); margin: 0 0.05em; transition: transform 0.6s var(--ease), background 0.3s; }
+.footer-wordmark .flamingo:hover { background: var(--pink); transform: translateY(-10%); }
