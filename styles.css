@@ -1443,3 +1443,13 @@ input, select, textarea { border-radius: var(--radius-sm); }
 .hero-wordmark .flamingo { vertical-align: top; margin-top: -0.23em; }
 .footer-wordmark .flamingo { background: var(--line-strong); margin: 0 0.05em; transition: transform 0.6s var(--ease), background 0.3s; }
 .footer-wordmark .flamingo:hover { background: var(--pink); transform: translateY(-10%); }
+/* Artist header: name + book button on one line, specialty and bio underneath */
+.artist-top { grid-template-columns: 1fr auto; }
+.artist-top .artist-name { grid-column: 1; grid-row: 2; }
+.artist-top .artist-book { grid-column: 2; grid-row: 2; align-self: end; }
+.artist-top .artist-meta { grid-column: 1 / -1; grid-row: 3; padding-bottom: 0; }
+.artist-meta .artist-profile-bio { max-width: 64ch; font-size: 1.02rem; }
+@media (max-width: 860px) {
+  .artist-top { grid-template-columns: 1fr; }
+  .artist-top .artist-book { grid-column: 1; grid-row: 4; justify-self: start; margin-top: 0.75rem; }
+}
